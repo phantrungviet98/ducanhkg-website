@@ -57,7 +57,7 @@ img {
   display: flex;
   align-items: center;
   gap: 28px;
-  min-height: 78px;
+  min-height: 96px;
   padding: 0 42px;
   background: transparent;
   border-bottom: 1px solid transparent;
@@ -84,22 +84,29 @@ img {
 }
 
 main {
-  padding-top: 78px;
+  padding-top: 96px;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  min-width: 210px;
+  gap: 20px;
+  min-width: 330px;
 }
 
 .brand-logo-image {
-  flex: 0 0 52px;
-  width: 52px;
-  height: 52px;
+  flex: 0 0 72px;
+  width: 72px;
+  height: 72px;
   object-fit: cover;
   background: var(--color-accent);
+}
+
+.brand-copy {
+  display: grid;
+  align-content: center;
+  gap: 8px;
+  min-width: 0;
 }
 
 .brand strong,
@@ -107,10 +114,19 @@ main {
   display: block;
 }
 
+.brand strong {
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
 .brand small {
   color: var(--color-muted);
-  font-size: 12px;
-  margin-top: 3px;
+  font-size: 18px;
+  line-height: 1.15;
+  font-weight: 700;
+  margin-top: 0;
 }
 
 .desktop-nav {
@@ -221,7 +237,7 @@ main {
 .hero {
   position: relative;
   min-height: 100vh;
-  margin-top: -78px;
+  margin-top: -96px;
   display: grid;
   align-items: end;
   overflow: hidden;
@@ -633,15 +649,27 @@ p {
   }
 
   .site-header {
-    min-height: 70px;
+    min-height: 76px;
   }
 
   .brand {
     min-width: 0;
+    gap: 12px;
+  }
+
+  .brand-logo-image {
+    flex-basis: 48px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .brand strong {
+    font-size: 20px;
   }
 
   .brand small {
-    display: none;
+    font-size: 12px;
+    max-width: 190px;
   }
 
   .hero-content {

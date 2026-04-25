@@ -15,8 +15,8 @@ export function Footer() {
       <div className="footer-grid">
         <div>
           <div className="brand footer-brand">
-            <Image className="brand-logo-image" src={site.logo} alt="" width={52} height={52} />
-            <span>
+            <Image className="brand-logo-image" src={site.logo} alt="" width={72} height={72} />
+            <span className="brand-copy">
               <strong>{site.name}</strong>
               <small>{locale === "vi" ? site.tagline : "Design - Construction - Turnkey delivery"}</small>
             </span>

@@ -27,8 +27,8 @@ export function Header() {
   return (
     <header className={`site-header ${transparent ? "is-transparent" : "is-solid"}`}>
       <Link className="brand" href="/" aria-label={`${site.name} ${content.common.homeAria}`}>
-        <Image className="brand-logo-image" src={site.logo} alt="" width={52} height={52} />
-        <span>
+        <Image className="brand-logo-image" src={site.logo} alt="" width={72} height={72} />
+        <span className="brand-copy">
           <strong>{site.name}</strong>
           <small>{locale === "vi" ? site.tagline : "Design - Construction - Turnkey delivery"}</small>
         </span>
