@@ -3,6 +3,8 @@ import type { Article, Hero, Project, Service } from "@/types/content";
 export const site = {
   name: "Đức Anh KG",
   tagline: "Tư vấn - Thiết kế - Thi công trọn gói",
+  logo: "/brand/logo.png",
+  banner: "/brand/banner.png",
   phone: "0918876718",
   email: "hello@ducanhkg.vn",
   address: "1055 Lâm Quang Ky, P. An Hòa, TP. Rạch Giá, T. Kiên Giang",
@@ -24,8 +26,7 @@ export const homeHero: Hero = {
   title: "Đức Anh KG tư vấn, thiết kế và thi công trọn gói",
   description:
     "Đồng hành cùng gia chủ từ ý tưởng ban đầu đến bàn giao công trình, tập trung vào quy trình rõ ràng, chi phí minh bạch và chất lượng hoàn thiện bền vững.",
-  image:
-    "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1800&q=80",
+  image: site.banner,
   primaryAction: { label: "Đăng ký tư vấn", href: "/dang-ky-tu-van-ho-tro" },
   secondaryAction: { label: "Xem dự án", href: "/du-an" }
 };

@@ -1,6 +1,6 @@
 import { Facebook, Mail, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { BrandLogo } from "@/components/BrandLogo";
 import { navItems, site } from "@/data/site";
 
 export function Footer() {
@@ -9,7 +9,7 @@ export function Footer() {
       <div className="footer-grid">
         <div>
           <div className="brand footer-brand">
-            <BrandLogo />
+            <Image className="brand-logo-image" src={site.logo} alt="" width={52} height={52} />
             <span>
               <strong>{site.name}</strong>
               <small>{site.tagline}</small>

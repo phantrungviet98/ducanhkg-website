@@ -1,9 +1,9 @@
 "use client";
 
 import { Menu, Phone, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { BrandLogo } from "@/components/BrandLogo";
 import { navItems, site } from "@/data/site";
 
 export function Header() {
@@ -12,7 +12,7 @@ export function Header() {
   return (
     <header className="site-header">
       <Link className="brand" href="/" aria-label={`${site.name} home`}>
-        <BrandLogo />
+        <Image className="brand-logo-image" src={site.logo} alt="" width={52} height={52} />
         <span>
           <strong>{site.name}</strong>
           <small>{site.tagline}</small>
