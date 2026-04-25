@@ -3,8 +3,8 @@ import type { Article, Hero, Project, Service } from "@/types/content";
 export const site = {
   name: "Đức Anh KG",
   tagline: "Tư vấn - Thiết kế - Thi công trọn gói",
-  logo: "/brand/logo.png",
-  banner: "/brand/banner.png",
+  logo: "/brand/logo.jpg",
+  banner: "/brand/banner.jpeg",
   phone: "0918876718",
   email: "hello@ducanhkg.vn",
   address: "1055 Lâm Quang Ky, P. An Hòa, TP. Rạch Giá, T. Kiên Giang",

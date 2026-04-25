@@ -3,14 +3,27 @@
 import { Menu, Phone, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { navItems, site } from "@/data/site";
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const transparent = pathname === "/" && !scrolled && !open;
+
+  useEffect(() => {
+    const updateScrolled = () => setScrolled(window.scrollY > 12);
+
+    updateScrolled();
+    window.addEventListener("scroll", updateScrolled, { passive: true });
+
+    return () => window.removeEventListener("scroll", updateScrolled);
+  }, []);
 
   return (
-    <header className="site-header">
+    <header className={`site-header ${transparent ? "is-transparent" : "is-solid"}`}>
       <Link className="brand" href="/" aria-label={`${site.name} home`}>
         <Image className="brand-logo-image" src={site.logo} alt="" width={52} height={52} />
         <span>
