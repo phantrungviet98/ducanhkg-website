@@ -3,6 +3,7 @@
 import { Menu, Phone, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { BrandLogo } from "@/components/BrandLogo";
 import { navItems, site } from "@/data/site";
 
 export function Header() {
@@ -11,7 +12,7 @@ export function Header() {
   return (
     <header className="site-header">
       <Link className="brand" href="/" aria-label={`${site.name} home`}>
-        <span className="brand-mark">DA</span>
+        <BrandLogo />
         <span>
           <strong>{site.name}</strong>
           <small>{site.tagline}</small>
@@ -46,7 +47,7 @@ export function Header() {
             </Link>
           ))}
           <Link className="button primary" href="/dang-ky-tu-van-ho-tro" onClick={() => setOpen(false)}>
-            Start a consultation
+            Đăng ký tư vấn
           </Link>
         </div>
       ) : null}

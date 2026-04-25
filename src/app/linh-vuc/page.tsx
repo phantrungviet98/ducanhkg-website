@@ -5,9 +5,9 @@ export default function SectorsPage() {
   return (
     <>
       <PageIntro
-        eyebrow="Sectors"
-        title="Residential, commercial, renovation, and fit-out work"
-        description="Each sector is stored as structured content so it can later be managed from Supabase-backed admin screens."
+        eyebrow="Lĩnh vực"
+        title="Nhà ở, thương mại, cải tạo và hoàn thiện nội thất"
+        description="Mỗi lĩnh vực đang được lưu dạng dữ liệu có cấu trúc để sau này quản lý từ admin Supabase."
       />
       <ServicesGrid items={services} />
     </>

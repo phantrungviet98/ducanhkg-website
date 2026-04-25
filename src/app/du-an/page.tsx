@@ -5,9 +5,9 @@ export default function ProjectsPage() {
   return (
     <section className="section">
       <PageIntro
-        eyebrow="Projects"
-        title="Selected construction and fit-out projects"
-        description="Project cards are data-driven now and can later be loaded from Supabase with filters, galleries, and admin editing."
+        eyebrow="Dự án"
+        title="Các công trình xây dựng và hoàn thiện tiêu biểu"
+        description="Danh sách dự án đã tách dữ liệu để sau này có thể tải từ Supabase, thêm bộ lọc, thư viện ảnh và chỉnh sửa từ admin."
       />
       <ProjectGrid items={projects} />
     </section>

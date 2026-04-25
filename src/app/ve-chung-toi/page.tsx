@@ -6,9 +6,9 @@ export default function AboutPage() {
   return (
     <>
       <PageIntro
-        eyebrow="About"
-        title="A construction team shaped around clarity, accountability, and finish quality"
-        description="This page is structured so company history, leadership, certifications, and operating standards can later be edited from an admin panel."
+        eyebrow="Về chúng tôi"
+        title="Đội ngũ xây dựng đặt trọng tâm vào sự rõ ràng, trách nhiệm và chất lượng hoàn thiện"
+        description="Trang này được tổ chức để sau này có thể quản lý lịch sử công ty, đội ngũ, chứng chỉ và tiêu chuẩn vận hành từ admin."
       />
       <section className="split-section">
         <Image
@@ -19,10 +19,10 @@ export default function AboutPage() {
           height={920}
         />
         <div>
-          <p className="eyebrow">Company profile</p>
-          <h2>Built to keep owners informed at every step</h2>
+          <p className="eyebrow">Hồ sơ công ty</p>
+          <h2>Đồng hành để gia chủ nắm rõ từng bước thi công</h2>
           <p>
-            Duc Anh KG is a placeholder brand for now. The final copy, logo, color system, leadership story, and proof points can be replaced when your brand assets are ready.
+            Đức Anh KG tư vấn, thiết kế và thi công trọn gói với tinh thần xây dựng tận tâm. Nội dung chi tiết có thể tiếp tục cập nhật khi có hồ sơ thương hiệu đầy đủ.
           </p>
         </div>
       </section>

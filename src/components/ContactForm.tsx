@@ -8,7 +8,7 @@ type Props = {
   title?: string;
 };
 
-export function ContactForm({ source, title = "Request a consultation" }: Props) {
+export function ContactForm({ source, title = "Đăng ký tư vấn" }: Props) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -41,27 +41,27 @@ export function ContactForm({ source, title = "Request a consultation" }: Props)
     <form className="lead-form" onSubmit={submit}>
       <h2>{title}</h2>
       <label>
-        Full name
-        <input name="name" required placeholder="Your name" />
+        Họ và tên
+        <input name="name" required placeholder="Tên của bạn" />
       </label>
       <label>
-        Phone
-        <input name="phone" required placeholder="+84..." />
+        Số điện thoại
+        <input name="phone" required placeholder="091..." />
       </label>
       <label>
         Email
-        <input name="email" type="email" placeholder="you@example.com" />
+        <input name="email" type="email" placeholder="email@example.com" />
       </label>
       <label>
-        Project notes
-        <textarea name="message" rows={5} placeholder="Tell us about the location, size, timeline, or service you need." />
+        Nội dung cần tư vấn
+        <textarea name="message" rows={5} placeholder="Cho chúng tôi biết địa điểm, quy mô, thời gian hoặc dịch vụ bạn cần." />
       </label>
       <button className="button primary" disabled={status === "sending"}>
         <Send size={17} />
-        {status === "sending" ? "Sending..." : "Send request"}
+        {status === "sending" ? "Đang gửi..." : "Gửi yêu cầu"}
       </button>
-      {status === "sent" ? <p className="form-status">Request received. We will contact you shortly.</p> : null}
-      {status === "error" ? <p className="form-status error">The request could not be sent. Check Supabase environment variables.</p> : null}
+      {status === "sent" ? <p className="form-status">Đã nhận thông tin. Chúng tôi sẽ liên hệ lại sớm.</p> : null}
+      {status === "error" ? <p className="form-status error">Chưa gửi được yêu cầu. Kiểm tra cấu hình Supabase.</p> : null}
     </form>
   );
 }

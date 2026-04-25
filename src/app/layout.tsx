@@ -6,18 +6,18 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: `${site.name} | ${site.tagline}`,
-  description: "Structured construction delivery for residential and commercial projects in Vietnam."
+  description: "Đức Anh KG tư vấn, thiết kế và thi công trọn gói tại Kiên Giang."
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="vi" data-scroll-behavior="smooth">
       <body>
         <Header />
         <main>{children}</main>
         <Footer />
         <div className="sticky-actions">
-          <a href={`tel:${site.phone.replaceAll(" ", "")}`}>Call</a>
+          <a href={`tel:${site.phone.replaceAll(" ", "")}`}>Gọi</a>
           <a href={site.zalo}>Zalo</a>
         </div>
       </body>

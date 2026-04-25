@@ -18,7 +18,7 @@ export default async function ArticleDetail({ params }: { params: Promise<{ slug
       <h1>{article.title}</h1>
       <p className="lede">{article.excerpt}</p>
       <p>
-        This article body is placeholder content. The later admin panel can store rich text, images, SEO metadata, and publishing status in Supabase.
+        Nội dung bài viết hiện là dữ liệu mẫu. Admin sau này có thể lưu nội dung rich text, hình ảnh, SEO metadata và trạng thái xuất bản trong Supabase.
       </p>
     </article>
   );

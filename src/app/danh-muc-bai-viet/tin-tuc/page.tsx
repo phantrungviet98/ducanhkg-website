@@ -5,9 +5,9 @@ export default function NewsPage() {
   return (
     <section className="section">
       <PageIntro
-        eyebrow="News"
-        title="Company updates and construction planning notes"
-        description="The news structure supports future categories, authors, publishing state, SEO fields, and featured images."
+        eyebrow="Tin tức"
+        title="Cập nhật công ty và ghi chú lập kế hoạch xây dựng"
+        description="Cấu trúc tin tức hỗ trợ chuyên mục, tác giả, trạng thái xuất bản, SEO và ảnh đại diện trong admin sau này."
       />
       <ArticleGrid items={articles} />
     </section>

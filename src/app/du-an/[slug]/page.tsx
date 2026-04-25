@@ -20,17 +20,17 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
           <p className="eyebrow">{project.category} · {project.year}</p>
           <h1>{project.title}</h1>
           <p>{project.summary}</p>
-          <p><strong>Location:</strong> {project.location}</p>
+          <p><strong>Địa điểm:</strong> {project.location}</p>
         </div>
       </section>
       <section className="section two-column">
         <div>
-          <h2>Project approach</h2>
+          <h2>Cách triển khai</h2>
           <p>
-            Detail content is placeholder copy. Later, the admin panel can manage project facts, galleries, scope, timeline, and handover notes.
+            Nội dung chi tiết hiện là dữ liệu mẫu. Sau này admin có thể quản lý thông tin dự án, thư viện ảnh, phạm vi, tiến độ và ghi chú bàn giao.
           </p>
         </div>
-        <ContactForm source={`project:${project.slug}`} title="Discuss a similar project" />
+        <ContactForm source={`project:${project.slug}`} title="Tư vấn công trình tương tự" />
       </section>
     </>
   );

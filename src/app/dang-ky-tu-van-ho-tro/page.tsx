@@ -5,9 +5,9 @@ export default function ConsultationPage() {
   return (
     <>
       <PageIntro
-        eyebrow="Consultation"
-        title="Request project advice from the delivery team"
-        description="Use this page as the primary conversion route for ads, campaign links, and homepage calls to action."
+        eyebrow="Tư vấn"
+        title="Đăng ký tư vấn từ đội ngũ Đức Anh KG"
+        description="Trang này dùng làm luồng chuyển đổi chính cho quảng cáo, chiến dịch và lời kêu gọi hành động trên trang chủ."
       />
       <section className="section narrow">
         <ContactForm source="consultation" />

@@ -1,130 +1,130 @@
 import type { Article, Hero, Project, Service } from "@/types/content";
 
 export const site = {
-  name: "Duc Anh KG",
-  tagline: "Construction and project delivery",
-  phone: "+84 000 000 000",
+  name: "Đức Anh KG",
+  tagline: "Tư vấn - Thiết kế - Thi công trọn gói",
+  phone: "0918876718",
   email: "hello@ducanhkg.vn",
-  address: "Ho Chi Minh City, Vietnam",
+  address: "1055 Lâm Quang Ky, P. An Hòa, TP. Rạch Giá, T. Kiên Giang",
   zalo: "#",
   facebook: "#"
 };
 
 export const navItems = [
-  { label: "About", href: "/ve-chung-toi" },
-  { label: "Sectors", href: "/linh-vuc" },
-  { label: "Projects", href: "/du-an" },
-  { label: "News", href: "/danh-muc-bai-viet/tin-tuc" },
-  { label: "Careers", href: "/tuyen-dung" },
-  { label: "Contact", href: "/lien-he" }
+  { label: "Về chúng tôi", href: "/ve-chung-toi" },
+  { label: "Lĩnh vực", href: "/linh-vuc" },
+  { label: "Dự án", href: "/du-an" },
+  { label: "Tin tức", href: "/danh-muc-bai-viet/tin-tuc" },
+  { label: "Tuyển dụng", href: "/tuyen-dung" },
+  { label: "Liên hệ", href: "/lien-he" }
 ];
 
 export const homeHero: Hero = {
-  eyebrow: "Built for demanding residential and commercial projects",
-  title: "A disciplined construction partner for modern Vietnamese spaces",
+  eyebrow: "Xây dựng tận tâm",
+  title: "Đức Anh KG tư vấn, thiết kế và thi công trọn gói",
   description:
-    "We plan, coordinate, and deliver homes, offices, and mixed-use buildings with clear communication, structured controls, and careful finishing.",
+    "Đồng hành cùng gia chủ từ ý tưởng ban đầu đến bàn giao công trình, tập trung vào quy trình rõ ràng, chi phí minh bạch và chất lượng hoàn thiện bền vững.",
   image:
-    "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1800&q=80",
-  primaryAction: { label: "Start a consultation", href: "/dang-ky-tu-van-ho-tro" },
-  secondaryAction: { label: "View projects", href: "/du-an" }
+    "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1800&q=80",
+  primaryAction: { label: "Đăng ký tư vấn", href: "/dang-ky-tu-van-ho-tro" },
+  secondaryAction: { label: "Xem dự án", href: "/du-an" }
 };
 
 export const services: Service[] = [
   {
-    title: "Design coordination",
+    title: "Tư vấn thiết kế",
     description:
-      "Translate owner goals into practical drawings, scope alignment, and buildable milestones before construction starts."
+      "Chuyển nhu cầu của gia chủ thành phương án mặt bằng, hồ sơ kỹ thuật và phạm vi thi công rõ ràng trước khi khởi công."
   },
   {
-    title: "Residential construction",
+    title: "Thi công nhà ở",
     description:
-      "Deliver townhouses, villas, and private residences with site supervision, procurement tracking, and finish control."
+      "Thi công nhà phố, biệt thự và công trình dân dụng với giám sát hiện trường, kiểm soát vật tư và hoàn thiện."
   },
   {
-    title: "Commercial fit-out",
+    title: "Hoàn thiện thương mại",
     description:
-      "Build offices, showrooms, and mixed-use interiors with predictable scheduling and clear handover standards."
+      "Triển khai văn phòng, showroom và mặt bằng kinh doanh với tiến độ rõ ràng và tiêu chuẩn bàn giao cụ thể."
   },
   {
-    title: "Renovation and upgrades",
+    title: "Cải tạo sửa chữa",
     description:
-      "Assess existing spaces, phase work around operations, and modernize structures with minimal disruption."
+      "Khảo sát hiện trạng, chia giai đoạn thi công hợp lý và nâng cấp không gian với mức gián đoạn thấp."
   }
 ];
 
 export const strengths = [
-  "Transparent cost and scope tracking",
-  "Daily site coordination routines",
-  "Documented material and finish approvals",
-  "Reliable handover and warranty process"
+  "Theo dõi chi phí và phạm vi minh bạch",
+  "Điều phối công trường theo ngày",
+  "Duyệt vật tư và hoàn thiện bằng hồ sơ rõ ràng",
+  "Bàn giao và bảo hành có quy trình"
 ];
 
 export const projects: Project[] = [
   {
     slug: "urban-family-villa",
-    title: "Urban Family Villa",
-    category: "Residential",
-    location: "Ho Chi Minh City",
+    title: "Biệt thự gia đình",
+    category: "Nhà ở",
+    location: "Rạch Giá, Kiên Giang",
     year: "2026",
     image:
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80",
     summary:
-      "A contemporary private residence focused on natural light, durable finishes, and calm interior proportions."
+      "Không gian sống hiện đại tập trung vào ánh sáng tự nhiên, vật liệu bền và tỷ lệ nội thất hài hòa."
   },
   {
     slug: "mixed-use-townhouse",
-    title: "Mixed-use Townhouse",
-    category: "Residential and retail",
-    location: "Kien Giang",
+    title: "Nhà phố kết hợp kinh doanh",
+    category: "Nhà ở và thương mại",
+    location: "Kiên Giang",
     year: "2025",
     image:
       "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1400&q=80",
     summary:
-      "A street-facing home with flexible ground-floor business space and private upper-level living areas."
+      "Nhà mặt tiền với tầng trệt linh hoạt cho kinh doanh và các tầng trên dành cho sinh hoạt riêng tư."
   },
   {
     slug: "compact-office-fitout",
-    title: "Compact Office Fit-out",
-    category: "Commercial",
-    location: "Can Tho",
+    title: "Văn phòng làm việc",
+    category: "Thương mại",
+    location: "Cần Thơ",
     year: "2025",
     image:
       "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80",
     summary:
-      "A practical workplace upgrade with acoustic meeting rooms, efficient lighting, and modular team zones."
+      "Cải tạo văn phòng với phòng họp cách âm, hệ chiếu sáng hiệu quả và khu làm việc linh hoạt."
   }
 ];
 
 export const articles: Article[] = [
   {
     slug: "planning-a-townhouse-build",
-    title: "How to prepare a townhouse project before construction",
-    category: "Guide",
+    title: "Chuẩn bị gì trước khi xây nhà phố",
+    category: "Hướng dẫn",
     date: "2026-04-12",
     image:
       "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=80",
     excerpt:
-      "The decisions owners should clarify early: scope, budget buffers, permit timeline, material priorities, and site access."
+      "Những điểm gia chủ nên làm rõ sớm: phạm vi, dự phòng ngân sách, giấy phép, vật tư ưu tiên và điều kiện thi công."
   },
   {
     slug: "handover-quality-checklist",
-    title: "A practical handover checklist for residential projects",
-    category: "Quality",
+    title: "Checklist bàn giao công trình nhà ở",
+    category: "Chất lượng",
     date: "2026-03-18",
     image:
       "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1400&q=80",
     excerpt:
-      "A structured handover reduces disputes and makes warranty responsibilities easier to manage after move-in."
+      "Bàn giao có danh mục rõ ràng giúp giảm tranh chấp và quản lý trách nhiệm bảo hành dễ hơn sau khi vào ở."
   },
   {
     slug: "choosing-finish-materials",
-    title: "Choosing finish materials without losing control of budget",
-    category: "Materials",
+    title: "Chọn vật liệu hoàn thiện nhưng vẫn kiểm soát ngân sách",
+    category: "Vật liệu",
     date: "2026-02-21",
     image:
       "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1400&q=80",
     excerpt:
-      "Use approval samples, alternates, and procurement deadlines to keep the final look aligned with the agreed budget."
+      "Dùng mẫu duyệt, phương án thay thế và mốc đặt hàng để giữ hình ảnh hoàn thiện đúng với ngân sách đã thống nhất."
   }
 ];

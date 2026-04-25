@@ -36,7 +36,7 @@ export function ServicesGrid({ items }: { items: Service[] }) {
     <section className="section">
       <div className="section-heading">
         <p className="eyebrow">Scope</p>
-        <h2>Services built around project control</h2>
+        <h2>Dịch vụ được tổ chức xoay quanh kiểm soát công trình</h2>
       </div>
       <div className="grid four">
         {items.map((item) => (
@@ -55,9 +55,9 @@ export function Strengths({ items }: { items: string[] }) {
     <section className="split-section">
       <div>
         <p className="eyebrow">Working method</p>
-        <h2>Clear process before beautiful finishing</h2>
+        <h2>Quy trình rõ ràng trước khi hoàn thiện đẹp</h2>
         <p>
-          The visual result matters, but predictable delivery depends on documentation, supervision, procurement, and owner approvals.
+          Công trình đẹp cần nền tảng từ hồ sơ, giám sát, vật tư và các mốc duyệt rõ ràng với chủ đầu tư.
         </p>
       </div>
       <div className="check-list">
@@ -96,7 +96,7 @@ export function ArticleGrid({ items }: { items: Article[] }) {
             <span>{article.category} · {article.date}</span>
             <h3>{article.title}</h3>
             <p>{article.excerpt}</p>
-            <strong>Read more <ArrowRight size={15} /></strong>
+            <strong>Xem thêm <ArrowRight size={15} /></strong>
           </div>
         </Link>
       ))}
