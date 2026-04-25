@@ -1,15 +1,20 @@
+"use client";
+
 import { PageIntro, ServicesGrid } from "@/components/Sections";
-import { services } from "@/data/site";
+import { useLocale } from "@/lib/locale-context";
 
 export default function SectorsPage() {
+  const { content } = useLocale();
+  const page = content.pages.sectors;
+
   return (
     <>
       <PageIntro
-        eyebrow="Lĩnh vực"
-        title="Nhà ở, thương mại, cải tạo và hoàn thiện nội thất"
-        description="Mỗi lĩnh vực đang được lưu dạng dữ liệu có cấu trúc để sau này quản lý từ admin Supabase."
+        eyebrow={page.eyebrow}
+        title={page.title}
+        description={page.description}
       />
-      <ServicesGrid items={services} />
+      <ServicesGrid items={content.services} />
     </>
   );
 }

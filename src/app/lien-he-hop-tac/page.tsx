@@ -1,16 +1,22 @@
+"use client";
+
 import { ContactForm } from "@/components/ContactForm";
 import { PageIntro } from "@/components/Sections";
+import { useLocale } from "@/lib/locale-context";
 
 export default function CooperationPage() {
+  const { content } = useLocale();
+  const page = content.pages.cooperation;
+
   return (
     <>
       <PageIntro
-        eyebrow="Hợp tác"
-        title="Hợp tác nhà cung cấp, thầu phụ và đối tác"
-        description="Trang này sẵn sàng nhận thông tin hợp tác và sau này có thể mở rộng thêm các trường onboarding nhà cung cấp."
+        eyebrow={page.eyebrow}
+        title={page.title}
+        description={page.description}
       />
       <section className="section narrow">
-        <ContactForm source="cooperation" title="Gửi thông tin hợp tác" />
+        <ContactForm source="cooperation" title={page.formTitle} />
       </section>
     </>
   );

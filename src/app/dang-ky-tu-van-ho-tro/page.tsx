@@ -1,13 +1,19 @@
+"use client";
+
 import { ContactForm } from "@/components/ContactForm";
 import { PageIntro } from "@/components/Sections";
+import { useLocale } from "@/lib/locale-context";
 
 export default function ConsultationPage() {
+  const { content } = useLocale();
+  const page = content.pages.consultation;
+
   return (
     <>
       <PageIntro
-        eyebrow="Tư vấn"
-        title="Đăng ký tư vấn từ đội ngũ Đức Anh KG"
-        description="Trang này dùng làm luồng chuyển đổi chính cho quảng cáo, chiến dịch và lời kêu gọi hành động trên trang chủ."
+        eyebrow={page.eyebrow}
+        title={page.title}
+        description={page.description}
       />
       <section className="section narrow">
         <ContactForm source="consultation" />

@@ -1,25 +1,29 @@
+"use client";
+
 import { ArticleGrid, HeroSection, ProjectGrid, ServicesGrid, Strengths } from "@/components/Sections";
-import { articles, homeHero, projects, services, strengths } from "@/data/site";
+import { useLocale } from "@/lib/locale-context";
 
 export default function Home() {
+  const { content } = useLocale();
+
   return (
     <>
-      <HeroSection hero={homeHero} />
-      <ServicesGrid items={services} />
-      <Strengths items={strengths} />
+      <HeroSection hero={content.hero} />
+      <ServicesGrid items={content.services} />
+      <Strengths items={content.strengths} />
       <section className="section">
         <div className="section-heading">
-          <p className="eyebrow">Dự án tiêu biểu</p>
-          <h2>Công trình được triển khai bằng chi tiết thực tế và tiến độ rõ ràng</h2>
+          <p className="eyebrow">{content.pages.homeProjectsEyebrow}</p>
+          <h2>{content.pages.homeProjectsTitle}</h2>
         </div>
-        <ProjectGrid items={projects} />
+        <ProjectGrid items={content.projects} />
       </section>
       <section className="section muted">
         <div className="section-heading">
-          <p className="eyebrow">Tin tức</p>
-          <h2>Ghi chú xây dựng dành cho gia chủ và đội dự án</h2>
+          <p className="eyebrow">{content.pages.homeNewsEyebrow}</p>
+          <h2>{content.pages.homeNewsTitle}</h2>
         </div>
-        <ArticleGrid items={articles} />
+        <ArticleGrid items={content.articles} />
       </section>
     </>
   );

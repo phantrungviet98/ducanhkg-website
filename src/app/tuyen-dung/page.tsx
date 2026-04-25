@@ -1,22 +1,27 @@
+"use client";
+
 import { ContactForm } from "@/components/ContactForm";
 import { PageIntro } from "@/components/Sections";
+import { useLocale } from "@/lib/locale-context";
 
 export default function CareersPage() {
+  const { content } = useLocale();
+  const page = content.pages.careers;
+
   return (
     <>
       <PageIntro
-        eyebrow="Tuyển dụng"
-        title="Gia nhập đội ngũ coi trọng kỷ luật công trường"
-        description="Danh sách tuyển dụng sau này có thể lấy từ Supabase với vị trí, địa điểm và trạng thái ứng tuyển."
+        eyebrow={page.eyebrow}
+        title={page.title}
+        description={page.description}
       />
       <section className="section two-column">
         <div className="check-list">
-          <p>Kỹ sư hiện trường</p>
-          <p>Dự toán khối lượng</p>
-          <p>Điều phối vật tư</p>
-          <p>Giám sát công trình</p>
+          {page.roles.map((role) => (
+            <p key={role}>{role}</p>
+          ))}
         </div>
-        <ContactForm source="careers" title="Gửi thông tin ứng tuyển" />
+        <ContactForm source="careers" title={page.formTitle} />
       </section>
     </>
   );

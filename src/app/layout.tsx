@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { StickyActions } from "@/components/StickyActions";
 import { site } from "@/data/site";
+import { LocaleProvider } from "@/lib/locale-context";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,13 +15,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="vi" data-scroll-behavior="smooth">
       <body>
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <div className="sticky-actions">
-          <a href={`tel:${site.phone.replaceAll(" ", "")}`}>Gọi</a>
-          <a href={site.zalo}>Zalo</a>
-        </div>
+        <LocaleProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <StickyActions />
+        </LocaleProvider>
       </body>
     </html>
   );

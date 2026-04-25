@@ -2,14 +2,17 @@
 
 import { Send } from "lucide-react";
 import { FormEvent, useState } from "react";
+import { useLocale } from "@/lib/locale-context";
 
 type Props = {
   source: string;
   title?: string;
 };
 
-export function ContactForm({ source, title = "Đăng ký tư vấn" }: Props) {
+export function ContactForm({ source, title }: Props) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const { content } = useLocale();
+  const form = content.form;
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -39,29 +42,29 @@ export function ContactForm({ source, title = "Đăng ký tư vấn" }: Props) {
 
   return (
     <form className="lead-form" onSubmit={submit}>
-      <h2>{title}</h2>
+      <h2>{title ?? form.title}</h2>
       <label>
-        Họ và tên
-        <input name="name" required placeholder="Tên của bạn" />
+        {form.name}
+        <input name="name" required placeholder={form.namePlaceholder} />
       </label>
       <label>
-        Số điện thoại
-        <input name="phone" required placeholder="091..." />
+        {form.phone}
+        <input name="phone" required placeholder={form.phonePlaceholder} />
       </label>
       <label>
         Email
-        <input name="email" type="email" placeholder="email@example.com" />
+        <input name="email" type="email" placeholder={form.emailPlaceholder} />
       </label>
       <label>
-        Nội dung cần tư vấn
-        <textarea name="message" rows={5} placeholder="Cho chúng tôi biết địa điểm, quy mô, thời gian hoặc dịch vụ bạn cần." />
+        {form.message}
+        <textarea name="message" rows={5} placeholder={form.messagePlaceholder} />
       </label>
       <button className="button primary" disabled={status === "sending"}>
         <Send size={17} />
-        {status === "sending" ? "Đang gửi..." : "Gửi yêu cầu"}
+        {status === "sending" ? form.sending : form.submit}
       </button>
-      {status === "sent" ? <p className="form-status">Đã nhận thông tin. Chúng tôi sẽ liên hệ lại sớm.</p> : null}
-      {status === "error" ? <p className="form-status error">Chưa gửi được yêu cầu. Kiểm tra cấu hình Supabase.</p> : null}
+      {status === "sent" ? <p className="form-status">{form.sent}</p> : null}
+      {status === "error" ? <p className="form-status error">{form.error}</p> : null}
     </form>
   );
 }

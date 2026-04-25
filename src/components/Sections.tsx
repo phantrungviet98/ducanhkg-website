@@ -1,7 +1,10 @@
+"use client";
+
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Article, Hero, Project, Service } from "@/types/content";
+import { useLocale } from "@/lib/locale-context";
 
 export function HeroSection({ hero }: { hero: Hero }) {
   return (
@@ -32,11 +35,13 @@ export function PageIntro({ eyebrow, title, description }: { eyebrow: string; ti
 }
 
 export function ServicesGrid({ items }: { items: Service[] }) {
+  const { content } = useLocale();
+
   return (
     <section className="section">
       <div className="section-heading">
-        <p className="eyebrow">Scope</p>
-        <h2>Dịch vụ được tổ chức xoay quanh kiểm soát công trình</h2>
+        <p className="eyebrow">{content.common.scope}</p>
+        <h2>{content.common.servicesHeading}</h2>
       </div>
       <div className="grid four">
         {items.map((item) => (
@@ -51,14 +56,14 @@ export function ServicesGrid({ items }: { items: Service[] }) {
 }
 
 export function Strengths({ items }: { items: string[] }) {
+  const { content } = useLocale();
+
   return (
     <section className="split-section">
       <div>
-        <p className="eyebrow">Working method</p>
-        <h2>Quy trình rõ ràng trước khi hoàn thiện đẹp</h2>
-        <p>
-          Công trình đẹp cần nền tảng từ hồ sơ, giám sát, vật tư và các mốc duyệt rõ ràng với chủ đầu tư.
-        </p>
+        <p className="eyebrow">{content.common.workingMethod}</p>
+        <h2>{content.common.strengthsHeading}</h2>
+        <p>{content.common.strengthsDescription}</p>
       </div>
       <div className="check-list">
         {items.map((item) => (
@@ -87,6 +92,8 @@ export function ProjectGrid({ items }: { items: Project[] }) {
 }
 
 export function ArticleGrid({ items }: { items: Article[] }) {
+  const { content } = useLocale();
+
   return (
     <div className="grid three">
       {items.map((article) => (
@@ -96,7 +103,7 @@ export function ArticleGrid({ items }: { items: Article[] }) {
             <span>{article.category} · {article.date}</span>
             <h3>{article.title}</h3>
             <p>{article.excerpt}</p>
-            <strong>Xem thêm <ArrowRight size={15} /></strong>
+            <strong>{content.common.readMore} <ArrowRight size={15} /></strong>
           </div>
         </Link>
       ))}

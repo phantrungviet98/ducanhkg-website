@@ -1,15 +1,20 @@
+"use client";
+
 import { ArticleGrid, PageIntro } from "@/components/Sections";
-import { articles } from "@/data/site";
+import { useLocale } from "@/lib/locale-context";
 
 export default function NewsPage() {
+  const { content } = useLocale();
+  const page = content.pages.news;
+
   return (
     <section className="section">
       <PageIntro
-        eyebrow="Tin tức"
-        title="Cập nhật công ty và ghi chú lập kế hoạch xây dựng"
-        description="Cấu trúc tin tức hỗ trợ chuyên mục, tác giả, trạng thái xuất bản, SEO và ảnh đại diện trong admin sau này."
+        eyebrow={page.eyebrow}
+        title={page.title}
+        description={page.description}
       />
-      <ArticleGrid items={articles} />
+      <ArticleGrid items={content.articles} />
     </section>
   );
 }
