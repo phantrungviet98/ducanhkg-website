@@ -1,7 +1,7 @@
 import type { Article, Hero, Project, Service } from "@/types/content";
 
 export const site = {
-  name: "Đức Anh KG",
+  name: "Duc Anh KG",
   tagline: "Tư vấn - Thiết kế - Thi công trọn gói",
   logo: "/brand/logo.jpg",
   banner: "/brand/banner.jpeg",

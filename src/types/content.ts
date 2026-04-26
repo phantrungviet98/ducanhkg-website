@@ -14,6 +14,7 @@ export type Hero = {
   title: string;
   description: string;
   image: string;
+  video?: string;
   primaryAction?: { label: string; href: string };
   secondaryAction?: { label: string; href: string };
 };

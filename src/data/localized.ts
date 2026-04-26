@@ -45,6 +45,7 @@ type LocalizedContent = {
     homeProjectsTitle: string;
     homeNewsEyebrow: string;
     homeNewsTitle: string;
+    whoWeAre: { eyebrow: string; title: string; body: string; cta: string; image: string };
     about: { eyebrow: string; title: string; description: string; profileEyebrow: string; profileTitle: string; profileBody: string };
     sectors: { eyebrow: string; title: string; description: string };
     projects: { eyebrow: string; title: string; description: string };
@@ -113,6 +114,13 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
       homeProjectsTitle: "Công trình được triển khai bằng chi tiết thực tế và tiến độ rõ ràng",
       homeNewsEyebrow: "Tin tức",
       homeNewsTitle: "Ghi chú xây dựng dành cho gia chủ và đội dự án",
+      whoWeAre: {
+        eyebrow: "Duc Anh KG chúng tôi là ai?",
+        title: "Đội ngũ tư vấn, thiết kế và thi công trọn gói tại Kiên Giang",
+        body: "Duc Anh KG đồng hành cùng khách hàng từ ý tưởng, thiết kế, dự toán đến tổ chức thi công và bàn giao. Chúng tôi tập trung vào giải pháp thực tế, quy trình minh bạch và chất lượng hoàn thiện phù hợp với từng công trình.",
+        cta: "Tìm hiểu thêm",
+        image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=80"
+      },
       about: {
         eyebrow: "Về chúng tôi",
         title: "Đội ngũ xây dựng đặt trọng tâm vào sự rõ ràng, trách nhiệm và chất lượng hoàn thiện",
@@ -168,6 +176,7 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
       title: "Đức Anh KG tư vấn, thiết kế và thi công trọn gói",
       description: "Đồng hành cùng gia chủ từ ý tưởng ban đầu đến bàn giao công trình, tập trung vào quy trình rõ ràng, chi phí minh bạch và chất lượng hoàn thiện bền vững.",
       image: site.banner,
+      video: "/VIDEO-GIOI-THIEU-WEB.mp4",
       primaryAction: { label: "Đăng ký tư vấn", href: "/dang-ky-tu-van-ho-tro" },
       secondaryAction: { label: "Xem dự án", href: "/du-an" }
     },
@@ -288,6 +297,13 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
       homeProjectsTitle: "Projects delivered with practical detail and clear progress",
       homeNewsEyebrow: "News",
       homeNewsTitle: "Construction notes for owners and project teams",
+      whoWeAre: {
+        eyebrow: "Who is Duc Anh KG?",
+        title: "A turnkey design and construction team based in Kien Giang",
+        body: "Duc Anh KG supports clients from concept, design, and budgeting through site execution and handover. We focus on practical solutions, transparent process, and finish quality tailored to each project.",
+        cta: "Learn more",
+        image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=80"
+      },
       about: {
         eyebrow: "About",
         title: "A construction team focused on clarity, accountability, and finish quality",
@@ -343,6 +359,7 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
       title: "Đức Anh KG design consultation and turnkey construction",
       description: "We support owners from first idea to handover, with clear process, transparent cost control, and durable finish quality.",
       image: site.banner,
+      video: "/VIDEO-GIOI-THIEU-WEB.mp4",
       primaryAction: { label: "Request consultation", href: "/dang-ky-tu-van-ho-tro" },
       secondaryAction: { label: "View projects", href: "/du-an" }
     },

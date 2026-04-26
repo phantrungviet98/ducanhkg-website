@@ -60,29 +60,27 @@ export function Header() {
         <Menu size={24} />
       </button>
 
-      {open ? (
-        <div className="mobile-panel">
-          <button className="menu-button close" onClick={() => setOpen(false)} aria-label={content.common.closeMenu}>
-            <X size={24} />
+      <div className={`mobile-panel ${open ? "is-open" : ""}`} aria-hidden={!open}>
+        <button className="menu-button close" onClick={() => setOpen(false)} aria-label={content.common.closeMenu}>
+          <X size={24} />
+        </button>
+        <div className="mobile-language-picker">
+          <button className={locale === "vi" ? "active" : ""} onClick={() => setLocale("vi")} type="button">
+            Tiếng Việt
           </button>
-          <div className="mobile-language-picker">
-            <button className={locale === "vi" ? "active" : ""} onClick={() => setLocale("vi")} type="button">
-              Tiếng Việt
-            </button>
-            <button className={locale === "en" ? "active" : ""} onClick={() => setLocale("en")} type="button">
-              English
-            </button>
-          </div>
-          {content.nav.map((item) => (
-            <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
-              {item.label}
-            </Link>
-          ))}
-          <Link className="button primary" href="/dang-ky-tu-van-ho-tro" onClick={() => setOpen(false)}>
-            {content.common.consultationCta}
-          </Link>
+          <button className={locale === "en" ? "active" : ""} onClick={() => setLocale("en")} type="button">
+            English
+          </button>
         </div>
-      ) : null}
+        {content.nav.map((item) => (
+          <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
+            {item.label}
+          </Link>
+        ))}
+        <Link className="button primary" href="/dang-ky-tu-van-ho-tro" onClick={() => setOpen(false)}>
+          {content.common.consultationCta}
+        </Link>
+      </div>
     </header>
   );
 }

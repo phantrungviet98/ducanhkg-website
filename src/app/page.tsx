@@ -1,6 +1,6 @@
 "use client";
 
-import { ArticleGrid, HeroSection, ProjectGrid, ServicesGrid, Strengths } from "@/components/Sections";
+import { ArticleGrid, HeroSection, ProjectGrid, ServicesGrid, Strengths, WhoWeAreSection } from "@/components/Sections";
 import { useLocale } from "@/lib/locale-context";
 
 export default function Home() {
@@ -9,6 +9,7 @@ export default function Home() {
   return (
     <>
       <HeroSection hero={content.hero} />
+      <WhoWeAreSection />
       <ServicesGrid items={content.services} />
       <Strengths items={content.strengths} />
       <section className="section">
