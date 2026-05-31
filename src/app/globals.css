@@ -1,4 +1,40 @@
+@font-face {
+  font-family: 'Google Sans Flex';
+  src: url('/fonts/GoogleSansFlex.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('/fonts/PlayfairDisplay.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('/fonts/PlayfairDisplay-Italic.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Great Vibes';
+  src: url('/fonts/GreatVibes.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
+  --font-sans: 'Google Sans Flex', Arial, Helvetica, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-script: 'Great Vibes', cursive;
+
   --color-brand-maroon: #591712;
   --color-brand-sand: #e4d5b9;
   --color-black: #000000;
@@ -35,7 +71,7 @@ body {
   margin: 0;
   background: var(--color-paper);
   color: var(--color-ink);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
 
 a {
@@ -306,12 +342,13 @@ main {
 }
 
 .eyebrow {
+  font-family: var(--font-script);
   color: var(--color-accent);
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
   margin: 0 0 14px;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .hero .eyebrow {
@@ -323,6 +360,12 @@ h2,
 h3,
 p {
   margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
 }
 
 h1 {
@@ -338,6 +381,10 @@ h2 {
 
 h3 {
   font-size: 22px;
+}
+
+.script {
+  font-family: var(--font-script);
 }
 
 p {
@@ -999,7 +1046,7 @@ p {
 
   .hero .eyebrow {
     margin-bottom: 10px;
-    font-size: 12px;
+    font-size: 17px;
   }
 
   .hero p {
