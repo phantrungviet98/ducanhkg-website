@@ -70,7 +70,6 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
       { label: "Về chúng tôi", href: "/ve-chung-toi" },
       { label: "Lĩnh vực", href: "/linh-vuc" },
       { label: "Dự án", href: "/du-an" },
-      { label: "Tin tức", href: "/danh-muc-bai-viet/tin-tuc" },
       { label: "Tuyển dụng", href: "/tuyen-dung" },
       { label: "Liên hệ", href: "/lien-he" }
     ],
@@ -253,7 +252,6 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
       { label: "About", href: "/ve-chung-toi" },
       { label: "Sectors", href: "/linh-vuc" },
       { label: "Projects", href: "/du-an" },
-      { label: "News", href: "/danh-muc-bai-viet/tin-tuc" },
       { label: "Careers", href: "/tuyen-dung" },
       { label: "Contact", href: "/lien-he" }
     ],

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Fragment, useState } from "react";
 import type { Article, Hero, Project, Service } from "@/types/content";
 import { useLocale } from "@/lib/locale-context";
+import { useInView } from "@/lib/use-in-view";
 
 export function HeroSection({ hero }: { hero: Hero }) {
   return (
@@ -41,13 +42,24 @@ export function PageIntro({ eyebrow, title, description }: { eyebrow: string; ti
   );
 }
 
+export function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) {
+  const { ref, inView } = useInView<HTMLDivElement>();
+  return (
+    <div className={`section-heading fade-up${inView ? " in-view" : ""}`} ref={ref}>
+      <p className="eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+    </div>
+  );
+}
+
 export function WhoWeAreSection() {
   const { content } = useLocale();
   const section = content.pages.whoWeAre;
+  const { ref, inView } = useInView<HTMLElement>();
 
   return (
-    <section className="who-section">
-      <div className="who-content">
+    <section className="who-section" ref={ref}>
+      <div className={`who-content fade-left${inView ? " in-view" : ""}`}>
         <p className="eyebrow">{section.eyebrow}</p>
         <h2>{section.title}</h2>
         <p>{section.body}</p>
@@ -55,7 +67,10 @@ export function WhoWeAreSection() {
           {section.cta}
         </Link>
       </div>
-      <div className="who-image">
+      <div
+        className={`who-image fade-right${inView ? " in-view" : ""}`}
+        style={{ transitionDelay: inView ? "0.18s" : "0s" }}
+      >
         <Image src={section.image} alt="" width={1200} height={820} />
       </div>
     </section>
@@ -65,6 +80,7 @@ export function WhoWeAreSection() {
 export function ServicesGrid({ items }: { items: Service[] }) {
   const { content, locale } = useLocale();
   const [activeIndex, setActiveIndex] = useState(0);
+  const { ref, inView } = useInView<HTMLElement>();
   const activeService = items[activeIndex] ?? items[0];
   const serviceImages = [
     "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=80",
@@ -76,8 +92,8 @@ export function ServicesGrid({ items }: { items: Service[] }) {
   const secondaryImage = serviceImages[(activeIndex + 1) % serviceImages.length] ?? serviceImages[1];
 
   return (
-    <section className="services-section">
-      <div className="services-heading">
+    <section className="services-section" ref={ref}>
+      <div className={`services-heading fade-up${inView ? " in-view" : ""}`}>
         <div>
           <p className="eyebrow">{content.common.scope}</p>
           <h2>{content.common.servicesHeading}</h2>
@@ -90,40 +106,61 @@ export function ServicesGrid({ items }: { items: Service[] }) {
       </div>
       <div className="services-explorer">
         <div className="services-accordion">
-        {items.map((item, index) => (
-          <Fragment key={item.title}>
-            <button
-              className={`service-row ${index === activeIndex ? "active" : ""}`}
-              onClick={() => setActiveIndex(index)}
-              type="button"
-            >
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <strong>{item.title}</strong>
-              <ArrowRight size={24} />
-            </button>
-            {index === activeIndex ? (
-              <div className="mobile-service-detail">
-                <Image src={activeImage} alt="" width={760} height={520} />
-                <p>{item.description}</p>
-                <Link className="button primary" href="/linh-vuc">
-                  {content.common.readMore}
-                </Link>
-              </div>
-            ) : null}
-          </Fragment>
-        ))}
+          {items.map((item, index) => (
+            <Fragment key={item.title}>
+              <button
+                className={`service-row fade-left${inView ? " in-view" : ""} ${index === activeIndex ? "active" : ""}`}
+                style={{ transitionDelay: inView ? `${0.12 + index * 0.09}s` : "0s" }}
+                onClick={() => setActiveIndex(index)}
+                type="button"
+              >
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{item.title}</strong>
+                <ArrowRight size={24} />
+              </button>
+              {index === activeIndex ? (
+                <div className="mobile-service-detail">
+                  <Image src={activeImage} alt="" width={760} height={520} />
+                  <p>{item.description}</p>
+                  <Link className="button primary" href="/linh-vuc">
+                    {content.common.readMore}
+                  </Link>
+                </div>
+              ) : null}
+            </Fragment>
+          ))}
         </div>
         <div className="service-detail">
-          <span className="service-index">{String(activeIndex + 1).padStart(2, "0")}</span>
-          <h3>{activeService.title}</h3>
-          <p>{activeService.description}</p>
-          <Link className="button primary" href="/linh-vuc">
-            {content.common.readMore}
-          </Link>
+          <div key={activeIndex} className="service-detail-body service-content-enter">
+            <span className="service-index">{String(activeIndex + 1).padStart(2, "0")}</span>
+            <h3>{activeService.title}</h3>
+            <p>{activeService.description}</p>
+            <Link className="button primary" href="/linh-vuc">
+              {content.common.readMore}
+            </Link>
+          </div>
         </div>
-        <div className="service-media" aria-hidden="true">
-          <Image className="service-media-main" src={activeImage} alt="" width={980} height={1120} />
-          <Image className="service-media-secondary" src={secondaryImage} alt="" width={560} height={680} />
+        <div
+          className={`service-media fade-right${inView ? " in-view" : ""}`}
+          style={{ transitionDelay: inView ? "0.3s" : "0s" }}
+          aria-hidden="true"
+        >
+          <Image
+            key={`main-${activeIndex}`}
+            className="service-media-main service-img-enter"
+            src={activeImage}
+            alt=""
+            width={980}
+            height={1120}
+          />
+          <Image
+            key={`secondary-${activeIndex}`}
+            className="service-media-secondary service-img-enter"
+            src={secondaryImage}
+            alt=""
+            width={560}
+            height={680}
+          />
         </div>
       </div>
     </section>
@@ -132,17 +169,24 @@ export function ServicesGrid({ items }: { items: Service[] }) {
 
 export function Strengths({ items }: { items: string[] }) {
   const { content } = useLocale();
+  const { ref, inView } = useInView<HTMLElement>();
 
   return (
-    <section className="split-section">
-      <div>
+    <section className="split-section" ref={ref}>
+      <div className={`fade-left${inView ? " in-view" : ""}`}>
         <p className="eyebrow">{content.common.workingMethod}</p>
         <h2>{content.common.strengthsHeading}</h2>
         <p>{content.common.strengthsDescription}</p>
       </div>
       <div className="check-list">
-        {items.map((item) => (
-          <p key={item}><CheckCircle2 size={20} /> {item}</p>
+        {items.map((item, index) => (
+          <p
+            key={item}
+            className={`fade-up${inView ? " in-view" : ""}`}
+            style={{ transitionDelay: inView ? `${0.14 + index * 0.07}s` : "0s" }}
+          >
+            <CheckCircle2 size={20} /> {item}
+          </p>
         ))}
       </div>
     </section>
@@ -150,10 +194,17 @@ export function Strengths({ items }: { items: string[] }) {
 }
 
 export function ProjectGrid({ items }: { items: Project[] }) {
+  const { ref, inView } = useInView<HTMLDivElement>();
+
   return (
-    <div className="grid three">
-      {items.map((project) => (
-        <Link className="image-card" href={`/du-an/${project.slug}`} key={project.slug}>
+    <div className="grid three" ref={ref}>
+      {items.map((project, index) => (
+        <Link
+          className={`image-card fade-up${inView ? " in-view" : ""}`}
+          href={`/du-an/${project.slug}`}
+          key={project.slug}
+          style={{ transitionDelay: inView ? `${index * 0.1}s` : "0s" }}
+        >
           <Image src={project.image} alt="" width={720} height={520} />
           <div>
             <span>{project.category} · {project.year}</span>
@@ -168,11 +219,17 @@ export function ProjectGrid({ items }: { items: Project[] }) {
 
 export function ArticleGrid({ items }: { items: Article[] }) {
   const { content } = useLocale();
+  const { ref, inView } = useInView<HTMLDivElement>();
 
   return (
-    <div className="grid three">
-      {items.map((article) => (
-        <Link className="article-card" href={`/danh-muc-bai-viet/tin-tuc/${article.slug}`} key={article.slug}>
+    <div className="grid three" ref={ref}>
+      {items.map((article, index) => (
+        <Link
+          className={`article-card fade-up${inView ? " in-view" : ""}`}
+          href={`/danh-muc-bai-viet/tin-tuc/${article.slug}`}
+          key={article.slug}
+          style={{ transitionDelay: inView ? `${index * 0.1}s` : "0s" }}
+        >
           <Image src={article.image} alt="" width={720} height={520} />
           <div>
             <span>{article.category} · {article.date}</span>

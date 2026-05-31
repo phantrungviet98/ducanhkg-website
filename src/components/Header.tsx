@@ -13,7 +13,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { content, locale, setLocale } = useLocale();
-  const transparent = pathname === "/" && !scrolled && !open;
+  const transparent = (pathname === "/" || pathname === "/du-an") && !scrolled && !open;
 
   useEffect(() => {
     const updateScrolled = () => setScrolled(window.scrollY > 12);

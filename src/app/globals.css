@@ -566,13 +566,19 @@ p {
 
 .service-detail {
   position: relative;
-  display: grid;
-  align-content: end;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   min-height: 470px;
   padding: 32px;
   overflow: hidden;
   background: var(--color-accent);
   color: var(--color-white);
+}
+
+.service-detail-body {
+  position: relative;
+  z-index: 1;
 }
 
 .service-detail::after {
@@ -611,7 +617,7 @@ p {
 }
 
 .service-detail .button {
-  justify-self: start;
+  align-self: flex-start;
   margin-top: 18px;
   background: var(--color-accent-soft);
   color: var(--color-accent);
@@ -1091,5 +1097,402 @@ p {
 
   .footer-bottom {
     flex-direction: column;
+  }
+}
+
+/* ─── Projects fullscreen slideshow ─── */
+
+.projects-fullscreen {
+  position: relative;
+  height: 100vh;
+  margin-top: -96px;
+  overflow: hidden;
+  background: var(--color-black);
+  user-select: none;
+}
+
+@supports (height: 100dvh) {
+  .projects-fullscreen {
+    height: 100dvh;
+  }
+}
+
+.projects-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  pointer-events: none;
+}
+
+.projects-slide.is-active {
+  opacity: 1;
+}
+
+.projects-slide-img {
+  object-fit: cover;
+  filter: brightness(0.78);
+}
+
+@keyframes kenBurns {
+  from { transform: scale(1.07); }
+  to   { transform: scale(1); }
+}
+
+.projects-slide.is-active .projects-slide-img {
+  animation: kenBurns 9s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.projects-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.08) 48%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.projects-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 44px 42px;
+}
+
+.projects-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.projects-info-inner {
+  animation: heroFadeUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.projects-info h1 {
+  color: var(--color-white);
+  font-size: clamp(24px, 3vw, 44px);
+  line-height: 1.08;
+  margin-bottom: 8px;
+}
+
+.projects-info p {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 18px;
+  margin: 0;
+}
+
+.projects-info-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.72;
+  transition: opacity 200ms ease;
+}
+
+.projects-info-link:hover {
+  opacity: 1;
+}
+
+.projects-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 18px;
+  flex-shrink: 0;
+}
+
+.projects-filter-row {
+  display: flex;
+  gap: 2px;
+}
+
+.pf-tab {
+  padding: 7px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+.pf-tab:hover {
+  color: var(--color-white);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.pf-tab.active {
+  background: var(--color-white);
+  border-color: var(--color-white);
+  color: var(--color-black);
+}
+
+.projects-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.projects-counter {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  min-width: 52px;
+  text-align: right;
+}
+
+.projects-arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: var(--color-white);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+.projects-arrow:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.projects-dots {
+  position: absolute;
+  right: 42px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.projects-dot {
+  width: 4px;
+  height: 24px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: background 200ms ease, height 200ms ease;
+}
+
+.projects-dot.active {
+  background: var(--color-white);
+  height: 40px;
+}
+
+@media (max-width: 980px) {
+  .projects-dots {
+    right: 22px;
+  }
+}
+
+@media (max-width: 640px) {
+  .projects-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 28px 22px;
+  }
+
+  .projects-controls {
+    align-items: flex-start;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .projects-filter-row {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .pf-tab {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+
+  .projects-dots {
+    right: 16px;
+  }
+
+  .projects-info h1 {
+    font-size: clamp(20px, 6vw, 28px);
+  }
+
+  .projects-info p {
+    font-size: 15px;
+  }
+}
+
+/* ─── Animation keyframes ─── */
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroMediaScale {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes serviceContentEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes serviceImgFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ─── Hero entrance animations ─── */
+
+.hero-video,
+.hero-image {
+  animation: heroMediaScale 2.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.hero-content .eyebrow {
+  opacity: 0;
+  animation: heroFadeUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+}
+
+.hero-content h1 {
+  opacity: 0;
+  animation: heroFadeUp 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.52s forwards;
+}
+
+.hero-content > p {
+  opacity: 0;
+  animation: heroFadeUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.74s forwards;
+}
+
+.hero-content .actions {
+  opacity: 0;
+  animation: heroFadeUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.94s forwards;
+}
+
+/* ─── Scroll-triggered animation utilities ─── */
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.fade-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-left.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-right {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-right.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ─── Service content / image transitions ─── */
+
+.service-content-enter {
+  animation: serviceContentEnter 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.service-img-enter {
+  animation: serviceImgFade 0.45s ease both;
+}
+
+.mobile-service-detail {
+  animation: serviceContentEnter 0.32s ease both;
+}
+
+/* ─── Reduced motion ─── */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video,
+  .hero-image {
+    animation: none;
+  }
+
+  .hero-content .eyebrow,
+  .hero-content h1,
+  .hero-content > p,
+  .hero-content .actions {
+    opacity: 1;
+    animation: none;
+  }
+
+  .fade-up,
+  .fade-left,
+  .fade-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .service-content-enter,
+  .service-img-enter,
+  .mobile-service-detail {
+    animation: none;
   }
 }
