@@ -1547,24 +1547,24 @@ p {
 /* ─── 2026 spatial redesign ─────────────────────────────────────────────── */
 
 :root {
-  --color-brand-maroon: #6d1617;
-  --color-brand-sand: #eadfc9;
-  --color-black: #11100f;
-  --color-white: #fffdf8;
-  --color-ember: #ff6138;
-  --rgb-brand-maroon: 109 22 23;
-  --rgb-brand-sand: 234 223 201;
-  --rgb-black: 17 16 15;
-  --rgb-white: 255 253 248;
-  --color-ink: #171513;
+  --color-brand-maroon: #591712;
+  --color-brand-sand: #e4d5b9;
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-ember: var(--color-brand-sand);
+  --rgb-brand-maroon: 89 23 18;
+  --rgb-brand-sand: 228 213 185;
+  --rgb-black: 0 0 0;
+  --rgb-white: 255 255 255;
+  --color-ink: #000000;
   --color-muted: #716c64;
   --color-line: rgb(23 21 19 / 0.12);
-  --color-paper: #f2eee7;
-  --color-surface: #fffdf8;
-  --color-accent: #6d1617;
-  --color-accent-soft: #eadfc9;
-  --color-header-bg: rgb(242 238 231 / 0.88);
-  --color-footer-bg: #11100f;
+  --color-paper: rgb(var(--rgb-brand-sand) / 0.34);
+  --color-surface: #ffffff;
+  --color-accent: #591712;
+  --color-accent-soft: #e4d5b9;
+  --color-header-bg: rgb(255 255 255 / 0.92);
+  --color-footer-bg: #000000;
   --shadow: 0 28px 80px rgb(17 16 15 / 0.15);
   --radius-sm: 14px;
   --radius-md: 24px;
@@ -1574,8 +1574,8 @@ p {
 }
 
 ::selection {
-  background: var(--color-ember);
-  color: var(--color-white);
+  background: var(--color-accent);
+  color: var(--color-accent-soft);
 }
 
 body {
@@ -1667,7 +1667,7 @@ main {
 
 .header-call:hover {
   transform: translateY(-2px);
-  background: #8c2020;
+  background: var(--color-black);
 }
 
 .site-header.is-transparent .header-call {
@@ -1800,7 +1800,7 @@ main {
 
 .hero .button.primary {
   background: var(--color-ember);
-  color: #1a100d;
+  color: var(--color-accent);
 }
 
 .hero .button.secondary {
@@ -1939,12 +1939,12 @@ main {
 
 .hero-bento-stat.accent-card {
   background: var(--color-ember);
-  color: #1a100d;
+  color: var(--color-accent);
 }
 
 .hero-bento-stat.accent-card svg,
 .hero-bento-stat.accent-card span {
-  color: #1a100d;
+  color: var(--color-accent);
 }
 
 .scroll-cue {
@@ -2374,7 +2374,7 @@ h2 {
   place-items: center;
   border-radius: 50%;
   background: var(--color-ember);
-  color: var(--color-black);
+  color: var(--color-accent);
   transition: transform 200ms ease;
 }
 
@@ -2471,7 +2471,7 @@ h2 {
 .lead-form input:focus,
 .lead-form textarea:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 4px rgb(109 22 23 / 0.1);
+  box-shadow: 0 0 0 4px rgb(var(--rgb-brand-maroon) / 0.1);
 }
 
 .lead-form .button {
@@ -2519,7 +2519,7 @@ h2 {
 
 .sticky-actions a:last-child {
   background: var(--color-ember);
-  color: var(--color-black);
+  color: var(--color-accent);
 }
 
 .projects-fullscreen {
