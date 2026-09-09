@@ -29,14 +29,40 @@ def rounded_cube(name: str, location, scale, bevel: float, mat=None):
     bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
     bevel_modifier = obj.modifiers.new(name="Soft masonry edges", type="BEVEL")
     bevel_modifier.width = bevel
-    bevel_modifier.segments = 5
+    bevel_modifier.segments = 8
     bpy.context.view_layer.objects.active = obj
     bpy.ops.object.modifier_apply(modifier=bevel_modifier.name)
-    for polygon in obj.data.polygons:
-        polygon.use_smooth = True
     if mat:
         obj.data.materials.append(mat)
     return obj
+
+
+def raised_brand_text(body: str, location, mat):
+    """Create editable Blender typography, then convert it to a web-safe mesh."""
+    bpy.ops.object.text_add(location=location)
+    lettering = bpy.context.object
+    lettering.name = "DAKG_Raised_Brand"
+    lettering.data.body = body
+    lettering.data.align_x = "CENTER"
+    lettering.data.align_y = "CENTER"
+    lettering.data.size = 0.43
+    lettering.data.space_character = 1.0
+    lettering.data.extrude = 0.010
+    lettering.data.bevel_depth = 0.003
+    lettering.data.bevel_resolution = 3
+    lettering.data.materials.append(mat)
+
+    font_path = ROOT / "public" / "fonts" / "GoogleSansFlex.ttf"
+    if font_path.exists():
+        lettering.data.font = bpy.data.fonts.load(str(font_path))
+
+    bpy.context.view_layer.objects.active = lettering
+    lettering.select_set(True)
+    bpy.ops.object.convert(target="MESH")
+    lettering.rotation_euler[2] = math.radians(180)
+    for polygon in lettering.data.polygons:
+        polygon.use_smooth = True
+    return lettering
 
 
 bpy.ops.object.select_all(action="SELECT")
@@ -49,7 +75,7 @@ brick = rounded_cube(
     "DAKG_Brick_Body",
     location=(0.0, 0.0, 0.0),
     scale=(2.30, 1.15, 0.625),
-    bevel=0.14,
+    bevel=0.075,
     mat=burgundy,
 )
 brick["brand_palette"] = "#591712 / #E4D5B9"
@@ -60,7 +86,7 @@ for index, y in enumerate((-0.48, 0.48), start=1):
         f"Channel_Cutter_{index}",
         location=(0.0, y, 0.61),
         scale=(1.72, 0.20, 0.18),
-        bevel=0.16,
+        bevel=0.10,
     )
     boolean = brick.modifiers.new(name=f"Recessed channel {index}", type="BOOLEAN")
     boolean.operation = "DIFFERENCE"
@@ -74,7 +100,7 @@ for index, y in enumerate((-0.48, 0.48), start=1):
         f"DAKG_Sand_Inset_{index}",
         location=(0.0, y, 0.535),
         scale=(1.64, 0.145, 0.035),
-        bevel=0.10,
+        bevel=0.06,
         mat=sand,
     )
 
@@ -85,6 +111,9 @@ rounded_cube(
     bevel=0.06,
     mat=sand,
 )
+
+# A restrained, genuinely modelled wordmark on the center band.
+raised_brand_text("ĐỨC ANH", location=(0.0, 0.0, 0.626), mat=sand)
 
 for obj in bpy.context.scene.objects:
     if obj.type == "MESH":
