@@ -8,9 +8,50 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BLEND_PATH = ROOT / "assets" / "blender" / "duc-anh-brick.blend"
 GLB_PATH = ROOT / "public" / "models" / "duc-anh-brick.glb"
+NORMAL_PATH = ROOT / "assets" / "blender" / "textures" / "clay-normal.png"
 
 
-def material(name: str, color: tuple[float, float, float, float], roughness: float):
+def make_clay_normal(size: int = 256):
+    """Generate a small tileable normal map for fired-clay micro grain."""
+    image = bpy.data.images.new("Fired clay micro grain", width=size, height=size, alpha=True)
+    pixels = [0.0] * (size * size * 4)
+    two_pi = math.tau
+
+    for y in range(size):
+        v = y / size
+        for x in range(size):
+            u = x / size
+            dx = (
+                0.12 * two_pi * 13 * math.cos(two_pi * (13 * u + 9 * v))
+                + 0.055 * two_pi * 31 * math.cos(two_pi * (31 * u - 17 * v))
+                + 0.025 * two_pi * 73 * math.cos(two_pi * (73 * u + 61 * v))
+            )
+            dy = (
+                0.12 * two_pi * 9 * math.cos(two_pi * (13 * u + 9 * v))
+                - 0.055 * two_pi * 17 * math.cos(two_pi * (31 * u - 17 * v))
+                + 0.025 * two_pi * 61 * math.cos(two_pi * (73 * u + 61 * v))
+            )
+            nx, ny, nz = -dx * 0.014, -dy * 0.014, 1.0
+            length = math.sqrt(nx * nx + ny * ny + nz * nz)
+            index = (y * size + x) * 4
+            pixels[index:index + 4] = [
+                nx / length * 0.5 + 0.5,
+                ny / length * 0.5 + 0.5,
+                nz / length * 0.5 + 0.5,
+                1.0,
+            ]
+
+    image.pixels.foreach_set(pixels)
+    image.colorspace_settings.name = "Non-Color"
+    NORMAL_PATH.parent.mkdir(parents=True, exist_ok=True)
+    image.filepath_raw = str(NORMAL_PATH)
+    image.file_format = "PNG"
+    image.save()
+    image.pack()
+    return image
+
+
+def material(name: str, color: tuple[float, float, float, float], roughness: float, normal_image=None):
     mat = bpy.data.materials.new(name)
     mat.diffuse_color = color
     mat.use_nodes = True
@@ -18,6 +59,14 @@ def material(name: str, color: tuple[float, float, float, float], roughness: flo
     principled.inputs["Base Color"].default_value = color
     principled.inputs["Roughness"].default_value = roughness
     principled.inputs["Metallic"].default_value = 0.0
+    if normal_image:
+        texture = mat.node_tree.nodes.new("ShaderNodeTexImage")
+        texture.name = "Fired clay grain"
+        texture.image = normal_image
+        normal = mat.node_tree.nodes.new("ShaderNodeNormalMap")
+        normal.inputs["Strength"].default_value = 0.34
+        mat.node_tree.links.new(texture.outputs["Color"], normal.inputs["Color"])
+        mat.node_tree.links.new(normal.outputs["Normal"], principled.inputs["Normal"])
     return mat
 
 
@@ -68,8 +117,9 @@ def raised_brand_text(body: str, location, mat):
 bpy.ops.object.select_all(action="SELECT")
 bpy.ops.object.delete(use_global=False)
 
-burgundy = material("DAKG Burgundy #591712", (0.100, 0.0086, 0.0060, 1.0), 0.76)
-sand = material("DAKG Sand #E4D5B9", (0.776, 0.665, 0.485, 1.0), 0.88)
+clay_normal = make_clay_normal()
+burgundy = material("DAKG Burgundy #591712", (0.100, 0.0086, 0.0060, 1.0), 0.84, clay_normal)
+sand = material("DAKG Sand #E4D5B9", (0.776, 0.665, 0.485, 1.0), 0.90, clay_normal)
 
 brick = rounded_cube(
     "DAKG_Brick_Body",
@@ -104,6 +154,34 @@ for index, y in enumerate((-0.48, 0.48), start=1):
         mat=sand,
     )
 
+# Six true hollow cores pass through the brick, matching common structural clay brick.
+for column, y in enumerate((-0.68, 0.0, 0.68), start=1):
+    for row, z in enumerate((-0.255, 0.255), start=1):
+        cutter = rounded_cube(
+            f"Hollow_Core_Cutter_{column}_{row}",
+            location=(0.0, y, z),
+            scale=(2.46, 0.225, 0.175),
+            bevel=0.055,
+        )
+        hollow = brick.modifiers.new(name=f"Hollow core {column}-{row}", type="BOOLEAN")
+        hollow.operation = "DIFFERENCE"
+        hollow.solver = "EXACT"
+        hollow.object = cutter
+        bpy.context.view_layer.objects.active = brick
+        bpy.ops.object.modifier_apply(modifier=hollow.name)
+        bpy.data.objects.remove(cutter, do_unlink=True)
+
+# Raised horizontal ribs are real geometry on both long faces—not a flat texture.
+for side in (-1, 1):
+    for rib_index, z in enumerate((-0.46, -0.30, -0.14, 0.14, 0.30, 0.46), start=1):
+        rounded_cube(
+            f"Side_Rib_{'L' if side < 0 else 'R'}_{rib_index}",
+            location=(0.0, side * 1.157, z),
+            scale=(2.08, 0.028, 0.026),
+            bevel=0.018,
+            mat=burgundy,
+        )
+
 rounded_cube(
     "DAKG_Underside",
     location=(0.0, 0.0, -0.603),
@@ -135,6 +213,8 @@ bpy.ops.export_scene.gltf(
     export_apply=True,
     export_yup=True,
     export_materials="EXPORT",
+    export_draco_mesh_compression_enable=True,
+    export_draco_mesh_compression_level=6,
 )
 
 print(f"BLEND={BLEND_PATH}")
