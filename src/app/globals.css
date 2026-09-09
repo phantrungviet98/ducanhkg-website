@@ -1544,6 +1544,231 @@ p {
   }
 }
 
+/* ─── Blender-authored interactive brick ──────────────────────────────── */
+
+.brick-model {
+  position: relative;
+  min-height: 360px;
+  overflow: hidden;
+  border: 1px solid rgb(var(--rgb-brand-sand) / 0.2);
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(circle at 50% 48%, rgb(var(--rgb-brand-sand) / 0.14), transparent 48%),
+    rgb(var(--rgb-white) / 0.035);
+  isolation: isolate;
+}
+
+.brick-model::before {
+  content: "";
+  position: absolute;
+  inset: 50% 9% auto;
+  z-index: -1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(var(--rgb-brand-sand) / 0.5), transparent);
+}
+
+.brick-model model-viewer {
+  width: 100%;
+  height: 360px;
+  display: block;
+  --poster-color: transparent;
+  --progress-bar-color: var(--color-accent-soft);
+  --progress-mask: transparent;
+}
+
+.brick-model-label,
+.brick-model-hint {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: rgb(var(--rgb-white) / 0.62);
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.brick-model-label {
+  top: 20px;
+  left: 22px;
+}
+
+.brick-model-hint {
+  right: 22px;
+  bottom: 18px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.brick-model-loading {
+  position: absolute;
+  inset: 20% 14%;
+  border-radius: 20px;
+  background: linear-gradient(100deg, transparent, rgb(var(--rgb-brand-sand) / 0.18), transparent);
+  animation: brickLoading 1.4s ease-in-out infinite;
+}
+
+@keyframes brickLoading {
+  0%, 100% { opacity: 0.3; transform: scale(0.94); }
+  50% { opacity: 0.85; transform: scale(1); }
+}
+
+.hero-bento-main > .brick-model.is-compact {
+  position: absolute;
+  top: 42px;
+  right: -5%;
+  z-index: 0;
+  width: 58%;
+  min-height: 245px;
+  border: 0;
+  background: transparent;
+  transform: translateZ(48px);
+}
+
+.hero-bento-main > .brick-model.is-compact model-viewer {
+  height: 245px;
+}
+
+.hero-bento-main > .brick-model.is-compact .brick-model-label {
+  top: 2px;
+  right: 18px;
+  left: auto;
+}
+
+.hero-bento-main > .brick-model.is-compact .brick-model-hint {
+  right: 26px;
+  bottom: 2px;
+}
+
+.hero-bento-main > .bento-topline,
+.hero-bento-main > strong,
+.hero-bento-main > h2,
+.hero-bento-main > .process-line {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-bento-main > h2 {
+  max-width: 54%;
+}
+
+.page-intro-copy {
+  position: relative;
+  z-index: 2;
+  width: min(64%, 1080px);
+}
+
+.page-intro-copy > p:last-child {
+  max-width: 720px;
+  color: rgb(var(--rgb-white) / 0.62);
+  font-size: 18px;
+}
+
+.page-intro > .brick-model {
+  position: absolute;
+  top: 50%;
+  right: var(--page-gutter);
+  z-index: 1;
+  width: min(36vw, 580px);
+  min-height: 390px;
+  transform: translateY(-50%);
+}
+
+.page-intro > .brick-model model-viewer {
+  height: 390px;
+}
+
+@media (max-width: 1180px) {
+  .hero-bento-main > .brick-model.is-compact {
+    right: -11%;
+    width: 64%;
+    opacity: 0.78;
+  }
+
+  .page-intro-copy {
+    width: 62%;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-bento-main > .brick-model.is-compact {
+    right: -2%;
+    width: 52%;
+    opacity: 1;
+  }
+
+  .page-intro {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+  .page-intro-copy {
+    width: 100%;
+  }
+
+  .page-intro-copy h1 {
+    max-width: 820px;
+  }
+
+  .page-intro > .brick-model {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    min-height: 340px;
+    transform: none;
+  }
+
+  .page-intro > .brick-model model-viewer {
+    height: 340px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-bento-main > .brick-model.is-compact {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: calc(100% + 16px);
+    min-height: 190px;
+    margin: 18px -8px -10px;
+    transform: none;
+  }
+
+  .hero-bento-main > .brick-model.is-compact model-viewer {
+    height: 190px;
+  }
+
+  .hero-bento-main > h2 {
+    max-width: none;
+  }
+
+  .hero-bento-main > .brick-model.is-compact .brick-model-label,
+  .hero-bento-main > .brick-model.is-compact .brick-model-hint {
+    display: none;
+  }
+
+  .brick-model,
+  .page-intro > .brick-model {
+    min-height: 290px;
+  }
+
+  .brick-model model-viewer,
+  .page-intro > .brick-model model-viewer {
+    height: 290px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brick-model-loading {
+    animation: none;
+  }
+}
+
 /* ─── 2026 spatial redesign ─────────────────────────────────────────────── */
 
 :root {

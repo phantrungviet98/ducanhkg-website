@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fragment, type PointerEvent, useState } from "react";
 import type { Article, Hero, Project, Service } from "@/types/content";
+import { BrickModel } from "@/components/BrickModel";
 import { useLocale } from "@/lib/locale-context";
 import { useInView } from "@/lib/use-in-view";
 
@@ -65,6 +66,7 @@ export function HeroSection({ hero }: { hero: Hero }) {
                 <span key={label}><i>{index + 1}</i>{locale === "vi" ? label : ["Brief", "Design", "Build", "Handover"][index]}</span>
               ))}
             </div>
+            <BrickModel compact />
           </div>
           <div className="hero-bento-card hero-bento-stat">
             <Clock3 size={20} />
@@ -86,9 +88,12 @@ export function HeroSection({ hero }: { hero: Hero }) {
 export function PageIntro({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
   return (
     <section className="page-intro">
-      <p className="eyebrow">{eyebrow}</p>
-      <h1>{title}</h1>
-      <p>{description}</p>
+      <div className="page-intro-copy">
+        <p className="eyebrow">{eyebrow}</p>
+        <h1>{title}</h1>
+        <p>{description}</p>
+      </div>
+      <BrickModel />
     </section>
   );
 }
