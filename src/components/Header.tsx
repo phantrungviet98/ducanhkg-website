@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, Phone, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -36,15 +36,15 @@ export function Header() {
 
       <nav className="desktop-nav" aria-label={content.common.mainNavigation}>
         {content.nav.map((item) => (
-          <Link key={item.href} href={item.href}>
+          <Link className={pathname.startsWith(item.href) ? "is-active" : ""} key={item.href} href={item.href}>
             {item.label}
           </Link>
         ))}
       </nav>
 
-      <Link className="header-call" href={`tel:${site.phone.replaceAll(" ", "")}`}>
-        <Phone size={17} />
-        <span>{site.phone}</span>
+      <Link className="header-call" href="/dang-ky-tu-van-ho-tro">
+        <span>{content.common.consultationCta}</span>
+        <ArrowUpRight size={16} />
       </Link>
 
       <div className="language-picker" aria-label="Language">

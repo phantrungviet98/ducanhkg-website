@@ -1,5 +1,6 @@
 "use client";
 
+import { MessageCircle, Phone } from "lucide-react";
 import { site } from "@/data/site";
 import { useLocale } from "@/lib/locale-context";
 
@@ -8,8 +9,8 @@ export function StickyActions() {
 
   return (
     <div className="sticky-actions">
-      <a href={`tel:${site.phone.replaceAll(" ", "")}`}>{content.common.call}</a>
-      <a href={site.zalo}>{content.common.zalo}</a>
+      <a href={`tel:${site.phone.replaceAll(" ", "")}`} aria-label={`${content.common.call} ${site.phone}`}><Phone size={17} /><span>{content.common.call}</span></a>
+      <a href={site.zalo} aria-label={content.common.zalo}><MessageCircle size={17} /><span>{content.common.zalo}</span></a>
     </div>
   );
 }

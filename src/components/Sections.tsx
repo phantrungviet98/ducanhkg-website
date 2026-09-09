@@ -1,14 +1,31 @@
 "use client";
 
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowDownRight, ArrowRight, CheckCircle2, Clock3, MoveUpRight, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, useState } from "react";
+import { Fragment, type PointerEvent, useState } from "react";
 import type { Article, Hero, Project, Service } from "@/types/content";
 import { useLocale } from "@/lib/locale-context";
 import { useInView } from "@/lib/use-in-view";
 
 export function HeroSection({ hero }: { hero: Hero }) {
+  const { locale } = useLocale();
+
+  function movePerspective(event: PointerEvent<HTMLDivElement>) {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+    event.currentTarget.style.setProperty("--tilt-x", `${(-y * 7).toFixed(2)}deg`);
+    event.currentTarget.style.setProperty("--tilt-y", `${(x * 9).toFixed(2)}deg`);
+    event.currentTarget.style.setProperty("--spot-x", `${((x + 0.5) * 100).toFixed(0)}%`);
+    event.currentTarget.style.setProperty("--spot-y", `${((y + 0.5) * 100).toFixed(0)}%`);
+  }
+
+  function resetPerspective(event: PointerEvent<HTMLDivElement>) {
+    event.currentTarget.style.setProperty("--tilt-x", "0deg");
+    event.currentTarget.style.setProperty("--tilt-y", "0deg");
+  }
+
   return (
     <section className="hero">
       {hero.video ? (
@@ -19,15 +36,49 @@ export function HeroSection({ hero }: { hero: Hero }) {
         <Image src={hero.image} alt="" className="hero-image" fill priority sizes="100vw" />
       )}
       <div className="hero-overlay" />
-      <div className="hero-content">
-        <p className="eyebrow">{hero.eyebrow}</p>
-        <h1>{hero.title}</h1>
-        <p>{hero.description}</p>
-        <div className="actions">
-          {hero.primaryAction ? <Link className="button primary" href={hero.primaryAction.href}>{hero.primaryAction.label}</Link> : null}
-          {hero.secondaryAction ? <Link className="button secondary" href={hero.secondaryAction.href}>{hero.secondaryAction.label}</Link> : null}
+      <div className="hero-grid-lines" aria-hidden="true" />
+      <div className="hero-layout">
+        <div className="hero-content">
+          <div className="hero-status"><span /> {locale === "vi" ? "Đang nhận dự án Q4 / 2026" : "Accepting Q4 / 2026 projects"}</div>
+          <p className="eyebrow">{hero.eyebrow}</p>
+          <h1>{hero.title}</h1>
+          <p>{hero.description}</p>
+          <div className="actions">
+            {hero.primaryAction ? <Link className="button primary" href={hero.primaryAction.href}>{hero.primaryAction.label}<ArrowDownRight size={18} /></Link> : null}
+            {hero.secondaryAction ? <Link className="button secondary" href={hero.secondaryAction.href}>{hero.secondaryAction.label}<MoveUpRight size={17} /></Link> : null}
+          </div>
+        </div>
+        <div
+          className="hero-bento"
+          onPointerMove={movePerspective}
+          onPointerLeave={resetPerspective}
+        >
+          <div className="hero-bento-card hero-bento-main">
+            <div className="bento-topline">
+              <span>{locale === "vi" ? "Hồ sơ công trình" : "Project control"}</span>
+              <span>DAKG—26</span>
+            </div>
+            <strong>01—04</strong>
+            <h2>{locale === "vi" ? "Một đầu mối. Trọn hành trình." : "One team. Full journey."}</h2>
+            <div className="process-line" aria-label={locale === "vi" ? "Quy trình bốn bước" : "Four-step process"}>
+              {["Ý tưởng", "Thiết kế", "Thi công", "Bàn giao"].map((label, index) => (
+                <span key={label}><i>{index + 1}</i>{locale === "vi" ? label : ["Brief", "Design", "Build", "Handover"][index]}</span>
+              ))}
+            </div>
+          </div>
+          <div className="hero-bento-card hero-bento-stat">
+            <Clock3 size={20} />
+            <strong>24h</strong>
+            <span>{locale === "vi" ? "phản hồi yêu cầu" : "response target"}</span>
+          </div>
+          <div className="hero-bento-card hero-bento-stat accent-card">
+            <ShieldCheck size={20} />
+            <strong>4×</strong>
+            <span>{locale === "vi" ? "mốc kiểm soát" : "control stages"}</span>
+          </div>
         </div>
       </div>
+      <div className="scroll-cue"><span>SCROLL</span><i /></div>
     </section>
   );
 }
@@ -53,7 +104,7 @@ export function SectionHeading({ eyebrow, title }: { eyebrow: string; title: str
 }
 
 export function WhoWeAreSection() {
-  const { content } = useLocale();
+  const { content, locale } = useLocale();
   const section = content.pages.whoWeAre;
   const { ref, inView } = useInView<HTMLElement>();
 
@@ -72,6 +123,15 @@ export function WhoWeAreSection() {
         style={{ transitionDelay: inView ? "0.18s" : "0s" }}
       >
         <Image src={section.image} alt="" width={1200} height={820} />
+        <div className="image-corner-label">RẠCH GIÁ<br />10.0120° N</div>
+      </div>
+      <div className={`who-metric fade-up${inView ? " in-view" : ""}`}>
+        <strong>360°</strong>
+        <span>{locale === "vi" ? "Quản lý xuyên suốt từ bản vẽ đến bàn giao" : "Managed continuously from drawing to handover"}</span>
+      </div>
+      <div className={`who-quote fade-up${inView ? " in-view" : ""}`} style={{ transitionDelay: inView ? "0.24s" : "0s" }}>
+        <span>“</span>
+        <p>{locale === "vi" ? "Thiết kế tốt phải sống được ngoài công trường." : "Good design must work on the construction site."}</p>
       </div>
     </section>
   );
@@ -178,14 +238,16 @@ export function Strengths({ items }: { items: string[] }) {
         <h2>{content.common.strengthsHeading}</h2>
         <p>{content.common.strengthsDescription}</p>
       </div>
-      <div className="check-list">
+      <div className="check-list strengths-bento">
         {items.map((item, index) => (
           <p
             key={item}
             className={`fade-up${inView ? " in-view" : ""}`}
             style={{ transitionDelay: inView ? `${0.14 + index * 0.07}s` : "0s" }}
           >
-            <CheckCircle2 size={20} /> {item}
+            <span className="strength-number">0{index + 1}</span>
+            <CheckCircle2 size={20} />
+            <strong>{item}</strong>
           </p>
         ))}
       </div>
@@ -197,10 +259,10 @@ export function ProjectGrid({ items }: { items: Project[] }) {
   const { ref, inView } = useInView<HTMLDivElement>();
 
   return (
-    <div className="grid three" ref={ref}>
+    <div className="grid three project-bento" ref={ref}>
       {items.map((project, index) => (
         <Link
-          className={`image-card fade-up${inView ? " in-view" : ""}`}
+          className={`image-card project-card-${index + 1} fade-up${inView ? " in-view" : ""}`}
           href={`/du-an/${project.slug}`}
           key={project.slug}
           style={{ transitionDelay: inView ? `${index * 0.1}s` : "0s" }}
@@ -210,6 +272,7 @@ export function ProjectGrid({ items }: { items: Project[] }) {
             <span>{project.category} · {project.year}</span>
             <h3>{project.title}</h3>
             <p>{project.location}</p>
+            <i className="card-arrow"><ArrowRight size={18} /></i>
           </div>
         </Link>
       ))}
