@@ -59,14 +59,16 @@ export function HeroSection({ hero }: { hero: Hero }) {
               <span>{locale === "vi" ? "Hồ sơ công trình" : "Project control"}</span>
               <span>DAKG—26</span>
             </div>
-            <strong>01—04</strong>
-            <h2>{locale === "vi" ? "Một đầu mối. Trọn hành trình." : "One team. Full journey."}</h2>
+            <div className="hero-bento-copy">
+              <strong>01—04</strong>
+              <h2>{locale === "vi" ? "Một đầu mối. Trọn hành trình." : "One team. Full journey."}</h2>
+            </div>
+            <BrickModel compact />
             <div className="process-line" aria-label={locale === "vi" ? "Quy trình bốn bước" : "Four-step process"}>
               {["Ý tưởng", "Thiết kế", "Thi công", "Bàn giao"].map((label, index) => (
                 <span key={label}><i>{index + 1}</i>{locale === "vi" ? label : ["Brief", "Design", "Build", "Handover"][index]}</span>
               ))}
             </div>
-            <BrickModel compact />
           </div>
           <div className="hero-bento-card hero-bento-stat">
             <Clock3 size={20} />

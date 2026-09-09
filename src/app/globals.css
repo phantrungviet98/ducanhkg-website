@@ -3028,3 +3028,138 @@ h2 {
     animation: none;
   }
 }
+
+/* Hero model stage: keep the 3D object independent from the copy. */
+.hero-bento-main {
+  display: grid;
+  grid-template-columns: minmax(170px, 0.78fr) minmax(250px, 1.22fr);
+  grid-template-rows: auto minmax(245px, 1fr) auto;
+  column-gap: 24px;
+  row-gap: 20px;
+  min-height: 430px;
+}
+
+.hero-bento-main > .bento-topline {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+.hero-bento-copy {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: center;
+  min-width: 0;
+}
+
+.hero-bento-copy > strong {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--color-accent-soft);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.hero-bento-copy > h2 {
+  max-width: none;
+  margin: 0;
+  font-size: clamp(28px, 2.5vw, 44px);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+.hero-bento-main > .brick-model.is-compact {
+  position: relative;
+  top: auto;
+  right: auto;
+  grid-column: 2;
+  grid-row: 2;
+  align-self: stretch;
+  width: 100%;
+  min-height: 245px;
+  opacity: 1;
+  border: 1px solid rgb(var(--rgb-brand-sand) / 0.14);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 50% 48%, rgb(var(--rgb-brand-sand) / 0.13), transparent 54%),
+    rgb(var(--rgb-black) / 0.12);
+  transform: translateZ(48px);
+}
+
+.hero-bento-main > .brick-model.is-compact model-viewer {
+  height: 100%;
+  min-height: 245px;
+}
+
+.hero-bento-main > .brick-model.is-compact .brick-model-label {
+  top: 14px;
+  right: auto;
+  left: 16px;
+}
+
+.hero-bento-main > .brick-model.is-compact .brick-model-hint {
+  right: 16px;
+  bottom: 12px;
+}
+
+.hero-bento-main > .process-line {
+  position: relative;
+  z-index: 1;
+  grid-column: 1 / -1;
+  grid-row: 3;
+}
+
+@media (max-width: 1180px) {
+  .hero-bento-main {
+    grid-template-columns: minmax(150px, 0.72fr) minmax(220px, 1.28fr);
+    min-height: 390px;
+    column-gap: 18px;
+  }
+
+  .hero-bento-copy > h2 {
+    font-size: clamp(26px, 2.8vw, 38px);
+  }
+
+  .hero-bento-main > .brick-model.is-compact {
+    right: auto;
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-bento-main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 220px auto;
+    min-height: auto;
+    row-gap: 20px;
+  }
+
+  .hero-bento-copy {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .hero-bento-copy > h2 {
+    font-size: 34px;
+  }
+
+  .hero-bento-main > .brick-model.is-compact {
+    grid-column: 1;
+    grid-row: 3;
+    width: 100%;
+    min-height: 220px;
+    margin: 0;
+    transform: none;
+  }
+
+  .hero-bento-main > .brick-model.is-compact model-viewer {
+    height: 220px;
+    min-height: 220px;
+  }
+
+  .hero-bento-main > .process-line {
+    grid-column: 1;
+    grid-row: 4;
+  }
+}
