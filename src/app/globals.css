@@ -3003,6 +3003,13 @@ h2 {
   .sticky-actions a {
     width: 42px;
     padding: 0;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .sticky-actions a svg {
+    display: block;
+    flex: 0 0 auto;
   }
 
   .projects-fullscreen {
