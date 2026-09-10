@@ -145,7 +145,7 @@ def raised_brand_text(body: str, location, mat):
     lettering.data.body = body
     lettering.data.align_x = "CENTER"
     lettering.data.align_y = "CENTER"
-    lettering.data.size = 0.43
+    lettering.data.size = 0.38
     lettering.data.space_character = 1.0
     lettering.data.extrude = 0.010
     lettering.data.bevel_depth = 0.003
@@ -244,13 +244,13 @@ rounded_cube(
 )
 
 # A restrained, genuinely modelled wordmark on the center band.
-raised_brand_text("ĐỨC ANH", location=(0.42, 0.0, 0.626), mat=sand)
+raised_brand_text("ĐỨC ANH", location=(0.27, 0.0, 0.626), mat=sand)
 
 # The supplied Duc Anh house mark is applied as a clean Blender decal beside the wordmark.
-bpy.ops.mesh.primitive_plane_add(size=1.0, location=(-1.34, 0.0, 0.641))
+bpy.ops.mesh.primitive_plane_add(size=1.0, location=(-0.72, 0.0, 0.641))
 logo = bpy.context.object
 logo.name = "DAKG_Logo_Mark"
-logo.scale = (0.28, 0.28, 1.0)
+logo.scale = (0.32, 0.32, 1.0)
 bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
 logo.data.materials.append(logo_decal)
 
