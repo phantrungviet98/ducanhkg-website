@@ -3163,3 +3163,235 @@ h2 {
     grid-row: 4;
   }
 }
+
+/* The brick now has its own editorial showcase outside the hero card. */
+.hero-bento-main {
+  display: flex;
+  min-height: 350px;
+  flex-direction: column;
+  gap: 0;
+}
+
+.hero-bento-copy {
+  width: min(100%, 460px);
+  margin: auto 0 44px;
+}
+
+.hero-bento-copy > h2 {
+  font-size: clamp(34px, 3.2vw, 54px);
+}
+
+.hero-bento-main > .process-line {
+  width: 100%;
+}
+
+.brick-showcase {
+  position: relative;
+  min-height: 760px;
+  padding: clamp(80px, 9vw, 140px) var(--page-gutter);
+  display: grid;
+  grid-template-columns: minmax(300px, 0.72fr) minmax(520px, 1.28fr);
+  gap: clamp(40px, 6vw, 100px);
+  align-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 78% 42%, rgb(var(--rgb-brand-maroon) / 0.14), transparent 34%),
+    var(--color-paper);
+  color: var(--color-ink);
+}
+
+.brick-showcase::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 8%;
+  width: min(52vw, 760px);
+  aspect-ratio: 1;
+  border: 1px solid rgb(var(--rgb-brand-maroon) / 0.14);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  box-shadow:
+    0 0 0 80px rgb(var(--rgb-brand-maroon) / 0.025),
+    0 0 0 160px rgb(var(--rgb-brand-maroon) / 0.018);
+  pointer-events: none;
+}
+
+.brick-showcase-copy,
+.brick-showcase-stage {
+  position: relative;
+  z-index: 1;
+}
+
+.brick-showcase-copy {
+  max-width: 610px;
+}
+
+.brick-showcase-copy .eyebrow {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.brick-showcase-copy h2 {
+  margin-bottom: 28px;
+  font-size: clamp(48px, 5.6vw, 88px);
+  text-wrap: balance;
+}
+
+.brick-showcase-copy > p:not(.eyebrow) {
+  max-width: 560px;
+  font-size: 18px;
+}
+
+.brick-specs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: 46px;
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.brick-specs span {
+  min-height: 112px;
+  padding: 20px 14px 18px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid var(--color-line);
+  color: var(--color-muted);
+  font-size: 12px;
+}
+
+.brick-specs span:last-child {
+  border-right: 0;
+  padding-left: 14px;
+}
+
+.brick-specs span:nth-child(2) {
+  padding-left: 14px;
+}
+
+.brick-specs strong {
+  color: var(--color-accent);
+  font-family: var(--font-serif);
+  font-size: 30px;
+}
+
+.brick-showcase-stage {
+  min-height: 610px;
+}
+
+.brick-showcase-stage .brick-model {
+  min-height: 610px;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+}
+
+.brick-showcase-stage .brick-model::before {
+  display: none;
+}
+
+.brick-showcase-stage .brick-model model-viewer {
+  height: 610px;
+}
+
+.brick-showcase-stage .brick-model-label {
+  top: 20px;
+  left: 20px;
+  color: var(--color-accent);
+}
+
+.brick-showcase-stage .brick-model-hint {
+  right: 20px;
+  bottom: 20px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--color-white);
+  color: var(--color-accent);
+  box-shadow: 0 10px 30px rgb(var(--rgb-black) / 0.08);
+}
+
+.brick-showcase-index {
+  position: absolute;
+  right: var(--page-gutter);
+  bottom: 24px;
+  color: rgb(var(--rgb-brand-maroon) / 0.34);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+@media (max-width: 980px) {
+  .brick-showcase {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .brick-showcase-copy {
+    max-width: 760px;
+  }
+
+  .brick-showcase-stage,
+  .brick-showcase-stage .brick-model {
+    min-height: 520px;
+  }
+
+  .brick-showcase-stage .brick-model model-viewer {
+    height: 520px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-bento-main {
+    display: flex;
+    min-height: 330px;
+  }
+
+  .hero-bento-copy {
+    margin: auto 0 34px;
+  }
+
+  .hero-bento-copy > h2 {
+    font-size: 34px;
+  }
+
+  .brick-showcase {
+    min-height: auto;
+    padding-top: 76px;
+    padding-bottom: 72px;
+  }
+
+  .brick-showcase-copy h2 {
+    font-size: clamp(46px, 14vw, 68px);
+  }
+
+  .brick-specs {
+    grid-template-columns: 1fr;
+  }
+
+  .brick-specs span,
+  .brick-specs span:nth-child(2),
+  .brick-specs span:last-child {
+    min-height: 84px;
+    padding: 14px 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .brick-specs span:last-child {
+    border-bottom: 0;
+  }
+
+  .brick-showcase-stage,
+  .brick-showcase-stage .brick-model {
+    min-height: 360px;
+  }
+
+  .brick-showcase-stage .brick-model model-viewer {
+    height: 360px;
+  }
+}

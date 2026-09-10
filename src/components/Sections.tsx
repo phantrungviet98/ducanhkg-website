@@ -63,7 +63,6 @@ export function HeroSection({ hero }: { hero: Hero }) {
               <strong>01—04</strong>
               <h2>{locale === "vi" ? "Một đầu mối. Trọn hành trình." : "One team. Full journey."}</h2>
             </div>
-            <BrickModel compact />
             <div className="process-line" aria-label={locale === "vi" ? "Quy trình bốn bước" : "Four-step process"}>
               {["Ý tưởng", "Thiết kế", "Thi công", "Bàn giao"].map((label, index) => (
                 <span key={label}><i>{index + 1}</i>{locale === "vi" ? label : ["Brief", "Design", "Build", "Handover"][index]}</span>
@@ -95,7 +94,34 @@ export function PageIntro({ eyebrow, title, description }: { eyebrow: string; ti
         <h1>{title}</h1>
         <p>{description}</p>
       </div>
-      <BrickModel />
+    </section>
+  );
+}
+
+export function BrickShowcaseSection() {
+  const { locale } = useLocale();
+  const { ref, inView } = useInView<HTMLElement>();
+
+  return (
+    <section className="brick-showcase" ref={ref}>
+      <div className={`brick-showcase-copy fade-left${inView ? " in-view" : ""}`}>
+        <p className="eyebrow">{locale === "vi" ? "Dấu ấn vật liệu" : "Material signature"}</p>
+        <h2>{locale === "vi" ? "Một viên gạch. Một lời cam kết." : "One brick. One commitment."}</h2>
+        <p>
+          {locale === "vi"
+            ? "Từ chi tiết nhỏ nhất đến toàn bộ công trình, Đức Anh KG theo đuổi sự bền vững, chính xác và minh bạch trong từng bước triển khai."
+            : "From the smallest detail to the complete build, Duc Anh KG pursues durability, precision, and clarity at every stage."}
+        </p>
+        <div className="brick-specs" aria-label={locale === "vi" ? "Thông tin mô hình" : "Model information"}>
+          <span><strong>GLB</strong>{locale === "vi" ? "Mesh Blender thật" : "Native Blender mesh"}</span>
+          <span><strong>360°</strong>{locale === "vi" ? "Kéo để khám phá" : "Drag to explore"}</span>
+          <span><strong>AR</strong>{locale === "vi" ? "Xem trong không gian" : "View in your space"}</span>
+        </div>
+      </div>
+      <div className={`brick-showcase-stage fade-right${inView ? " in-view" : ""}`}>
+        <BrickModel />
+      </div>
+      <div className="brick-showcase-index" aria-hidden="true">MATERIAL / 01</div>
     </section>
   );
 }
