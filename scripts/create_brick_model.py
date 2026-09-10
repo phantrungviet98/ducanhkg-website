@@ -244,13 +244,13 @@ rounded_cube(
 )
 
 # A restrained, genuinely modelled wordmark on the center band.
-raised_brand_text("ĐỨC ANH", location=(0.27, 0.0, 0.626), mat=sand)
+raised_brand_text("ĐỨC ANH", location=(0.24, 0.0, 0.626), mat=sand)
 
 # The supplied Duc Anh house mark is applied as a clean Blender decal beside the wordmark.
-bpy.ops.mesh.primitive_plane_add(size=1.0, location=(-0.72, 0.0, 0.641))
+bpy.ops.mesh.primitive_plane_add(size=1.0, location=(-0.64, 0.0, 0.641))
 logo = bpy.context.object
 logo.name = "DAKG_Logo_Mark"
-logo.scale = (0.32, 0.32, 1.0)
+logo.scale = (0.40, 0.40, 1.0)
 bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
 logo.data.materials.append(logo_decal)
 
