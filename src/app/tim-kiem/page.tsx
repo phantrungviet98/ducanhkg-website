@@ -10,6 +10,7 @@ export default function SearchPage() {
   return (
     <>
       <PageIntro
+        compact
         eyebrow={locale === "vi" ? "Tìm kiếm" : "Search"}
         title={locale === "vi" ? "Tìm đúng nội dung bạn đang cần" : "Find exactly what you need"}
         description={locale === "vi" ? "Tìm trong dự án, cẩm nang, dịch vụ và video đang có trên website." : "Search across projects, guides, services, and videos currently on the website."}

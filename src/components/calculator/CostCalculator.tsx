@@ -1,11 +1,12 @@
 "use client";
 
 import { ArrowLeft, ArrowRight, Check, Info, Printer, RotateCcw } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ProjectGrid } from "@/components/projects/ProjectGrid";
 import { ButtonLink } from "@/components/ui/ButtonLink";
-import { costRateVersion, type AccessType, type BuildingType, type FinishLevel, type FoundationType, type ProvinceType, type RoofType } from "@/data/cost-rates";
+import { defaultCostRateSettings, type CostRateSettings, type AccessType, type BuildingType, type FinishLevel, type FoundationType, type ProvinceType, type RoofType } from "@/data/cost-rates";
 import { calculateConstructionCost, formatCompactVnd } from "@/lib/cost-calculator";
+import { validateCostRateConfig } from "@/lib/cost-rate-settings";
 import { useLocale } from "@/lib/locale-context";
 import { trackEvent } from "@/lib/analytics";
 
@@ -62,7 +63,20 @@ export function CostCalculator() {
   const [step, setStep] = useState(1);
   const [state, setState] = useState<CalculatorState>(initialState);
   const [error, setError] = useState("");
-  const result = useMemo(() => calculateConstructionCost(state), [state]);
+  const [rates, setRates] = useState<CostRateSettings>(defaultCostRateSettings);
+  const [ratesLoading, setRatesLoading] = useState(true);
+  const result = useMemo(() => calculateConstructionCost(state, rates.config), [state, rates.config]);
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/cost-rates", { signal: controller.signal, cache: "no-store" })
+      .then((response) => response.ok ? response.json() : Promise.reject())
+      .then((settings: CostRateSettings) => {
+        if (validateCostRateConfig(settings.config)) setRates(settings);
+      })
+      .catch(() => undefined)
+      .finally(() => { if (!controller.signal.aborted) setRatesLoading(false); });
+    return () => controller.abort();
+  }, []);
   const related = useMemo(() => {
     const exact = content.projects.filter((project) => project.filters?.type === state.buildingType);
     return (exact.length ? exact : content.projects).slice(0, 2);
@@ -81,6 +95,10 @@ export function CostCalculator() {
   }
 
   function next() {
+    if (step === 3 && ratesLoading) {
+      setError(locale === "vi" ? "Đang tải đơn giá, vui lòng thử lại sau giây lát." : "Loading current rates. Please try again shortly.");
+      return;
+    }
     if (step === 2 && (state.landArea <= 0 || state.footprint <= 0 || state.footprint > state.landArea || state.floors < 1 || state.floors > 6)) {
       setError(copy.invalid);
       return;
@@ -135,12 +153,15 @@ export function CostCalculator() {
           <fieldset><legend>{copy.foundation}</legend><div className="calculator-choice-grid"><RadioCard name="foundation" value="single" current={state.foundation} title={locale === "vi" ? "Móng đơn" : "Pad foundation"} onChange={() => set("foundation", "single")} /><RadioCard name="foundation" value="strip" current={state.foundation} title={locale === "vi" ? "Móng băng" : "Strip foundation"} onChange={() => set("foundation", "strip")} /><RadioCard name="foundation" value="pile" current={state.foundation} title={locale === "vi" ? "Móng cọc" : "Pile foundation"} onChange={() => set("foundation", "pile")} /></div></fieldset>
           <fieldset><legend>{copy.access}</legend><div className="calculator-choice-grid"><RadioCard name="access" value="wide" current={state.access} title={locale === "vi" ? "Đường rộng trên 5 m" : "Road over 5 m"} onChange={() => set("access", "wide")} /><RadioCard name="access" value="medium" current={state.access} title={locale === "vi" ? "Hẻm 3–5 m" : "Lane 3–5 m"} onChange={() => set("access", "medium")} /><RadioCard name="access" value="narrow" current={state.access} title={locale === "vi" ? "Hẻm dưới 3 m" : "Lane under 3 m"} onChange={() => set("access", "narrow")} /></div></fieldset>
           <div className="calculator-fields two-fields"><label className="calculator-field"><span>{copy.basement}</span><div><input type="number" min="0" value={state.basementArea} onChange={(event) => set("basementArea", Number(event.target.value))} /><em>m²</em></div></label><label className="calculator-toggle"><input type="checkbox" checked={state.elevator} onChange={(event) => set("elevator", event.target.checked)} /><span><i /><strong>{copy.elevator}</strong></span></label></div>
+          {error ? <p className="calculator-error" role="alert">{error}</p> : null}
         </section> : null}
 
         {step === 4 ? <section className="calculator-result" aria-live="polite">
           <div className="calculator-result-heading"><div><p className="eyebrow">{copy.steps[3]}</p><h2>{formatCompactVnd(result.totalMin, locale)} – {formatCompactVnd(result.totalMax, locale)}</h2><p>{copy.total}</p></div><span>{result.convertedArea} m²<small>{copy.converted}</small></span></div>
           <div className="calculator-breakdown"><div><span>{copy.raw}</span><strong>{formatCompactVnd(result.rawMin, locale)} – {formatCompactVnd(result.rawMax, locale)}</strong></div><div><span>{copy.finishes}</span><strong>{formatCompactVnd(result.finishMin, locale)} – {formatCompactVnd(result.finishMax, locale)}</strong></div></div>
-          <div className="calculator-version"><Info size={18} /><div><strong>{copy.version}: {costRateVersion.id}</strong><span>{locale === "vi" ? `Cập nhật ${costRateVersion.updatedAt}` : `Updated ${costRateVersion.updatedAt}`}</span></div></div>
+          <div className="calculator-version"><Info size={18} /><div><strong>{copy.version}: {rates.version}</strong><span>{locale === "vi" ? "Cập nhật" : "Updated"} {new Date(rates.updatedAt).toLocaleDateString(locale === "vi" ? "vi-VN" : "en-US", { timeZone: "Asia/Ho_Chi_Minh" })}</span></div></div>
+          {rates.note && <p className="calculator-disclaimer">{rates.note}</p>}
+          {rates.source !== "database" ? <p className="calculator-error" role="status">{locale === "vi" ? "Đang dùng bảng giá mặc định vì chưa đọc được cấu hình CRM. Vui lòng liên hệ để xác nhận đơn giá hiện hành." : "Default rates are in use because current CRM rates are unavailable. Please contact us to confirm current pricing."}</p> : null}
           <p className="calculator-disclaimer">{copy.disclaimer}</p>
           <div className="calculator-result-actions"><ButtonLink href="/dang-ky-tu-van-ho-tro">{copy.consult} <ArrowRight size={17} /></ButtonLink><button type="button" onClick={() => window.print()}><Printer size={16} /> {copy.print}</button><button type="button" onClick={reset}><RotateCcw size={16} /> {copy.reset}</button></div>
         </section> : null}

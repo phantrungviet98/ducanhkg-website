@@ -9,6 +9,7 @@
    - `supabase/migrations/202609260001_articles.sql` (CRM Cẩm nang; chỉ chạy sau migration dự án vì dùng chung quyền admin)
    - `supabase/migrations/202609220002_leads.sql` (nếu chưa chạy)
    - `supabase/migrations/202609260002_leads_crm.sql` (CRM đăng ký tư vấn; chạy sau hai migration gốc)
+   - `supabase/migrations/202609260003_cost_rate_settings.sql` (đơn giá dự toán; chạy sau migration dự án)
 3. Schema tạo bảng `projects`, `articles`, danh sách `admin_users`, các bucket ảnh công khai và RLS policy.
 
 ## 2. Tạo tài khoản quản trị
@@ -42,9 +43,11 @@ Website dùng dữ liệu mẫu làm fallback nếu Supabase chưa được cấ
 
 ## 4. Quản lý ảnh
 
-Trang admin có ba tab **Dự án**, **Cẩm nang** và **Đăng ký tư vấn**. Bạn có thể thêm, sửa, xóa, ẩn/hiện bài cẩm nang, soạn nội dung theo đoạn, chọn ngày đăng và tải ảnh đại diện JPG, PNG, WebP hoặc AVIF (tối đa 10 MB) lên bucket `article-media`. Ảnh dự án dùng bucket `project-media`. Ảnh trong bộ bàn giao ban đầu đã được tối ưu và lưu tại `public/projects`.
+Trang admin có bốn tab **Dự án**, **Cẩm nang**, **Đăng ký tư vấn** và **Đơn giá dự toán**. Bạn có thể thêm, sửa, xóa, ẩn/hiện bài cẩm nang, soạn nội dung theo đoạn, chọn ngày đăng và tải ảnh đại diện JPG, PNG, WebP hoặc AVIF (tối đa 10 MB) lên bucket `article-media`. Ảnh dự án dùng bucket `project-media`. Ảnh trong bộ bàn giao ban đầu đã được tối ưu và lưu tại `public/projects`.
 
 Tab **Đăng ký tư vấn** hiển thị các yêu cầu từ form, cho phép lọc theo trạng thái **Chưa tư vấn / Đã tư vấn / Ngoại lệ** và lưu ghi chú nội bộ. Quyền đọc/cập nhật chỉ dành cho user trong `admin_users`. Form gửi qua `/api/leads` và chỉ báo thành công sau khi Supabase lưu thành công. Thông báo qua ứng dụng chat chưa bật; cần chọn kênh và cấu hình token/webhook riêng trên server.
+
+Tab **Đơn giá dự toán** quản lý đơn giá phần thô, vật tư hoàn thiện, hệ số móng/mái/đường vào/khu vực/tầng hầm, chi phí thang máy và mã phiên bản. Chỉ admin được cập nhật; khách truy cập chỉ đọc bảng giá đang áp dụng. Sau khi lưu, tải lại `/cong-cu/du-toan` để dùng cấu hình mới. Nếu chưa chạy migration hoặc Supabase tạm lỗi, công cụ hiển thị cảnh báo và dùng bảng giá mặc định để tham khảo, không giả vờ là giá CRM hiện hành.
 
 Để nhập lại ảnh từ các ZIP gốc:
 

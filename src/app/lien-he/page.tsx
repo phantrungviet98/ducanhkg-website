@@ -12,6 +12,7 @@ export default function ContactPage() {
   return (
     <>
       <PageIntro
+        compact
         eyebrow={page.eyebrow}
         title={page.title}
         description={page.description}

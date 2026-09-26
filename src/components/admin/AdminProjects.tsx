@@ -8,6 +8,7 @@ import { getSupabaseBrowserClient } from "@/lib/supabase";
 import type { ProjectRow } from "@/lib/projects";
 import { AdminArticles } from "@/components/admin/AdminArticles";
 import { AdminLeads } from "@/components/admin/AdminLeads";
+import { AdminCostRates } from "@/components/admin/AdminCostRates";
 
 type FormState = ProjectRow;
 
@@ -56,7 +57,7 @@ export function AdminProjects() {
   const [draggingSlug, setDraggingSlug] = useState<string | null>(null);
   const [busy, setBusy] = useState(Boolean(supabase));
   const [message, setMessage] = useState("");
-  const [tab, setTab] = useState<"projects" | "articles" | "leads">("projects");
+  const [tab, setTab] = useState<"projects" | "articles" | "leads" | "rates">("projects");
 
   async function loadProjects() {
     if (!supabase) return;
@@ -212,8 +213,8 @@ export function AdminProjects() {
 
   return (
     <section className="admin-shell">
-      <nav className="admin-tabs" aria-label="Nội dung quản trị"><button type="button" className={tab === "projects" ? "is-active" : ""} onClick={() => setTab("projects")}>Dự án</button><button type="button" className={tab === "articles" ? "is-active" : ""} onClick={() => setTab("articles")}>Cẩm nang</button><button type="button" className={tab === "leads" ? "is-active" : ""} onClick={() => setTab("leads")}>Đăng ký tư vấn</button></nav>
-      {tab !== "projects" ? <><div className="admin-global-actions"><button className="button secondary" onClick={() => supabase.auth.signOut().then(() => location.reload())}><LogOut size={18} /> Đăng xuất</button></div>{tab === "articles" ? <AdminArticles supabase={supabase} /> : <AdminLeads supabase={supabase} />}</> : <>
+      <nav className="admin-tabs" aria-label="Nội dung quản trị"><button type="button" className={tab === "projects" ? "is-active" : ""} onClick={() => setTab("projects")}>Dự án</button><button type="button" className={tab === "articles" ? "is-active" : ""} onClick={() => setTab("articles")}>Cẩm nang</button><button type="button" className={tab === "leads" ? "is-active" : ""} onClick={() => setTab("leads")}>Đăng ký tư vấn</button><button type="button" className={tab === "rates" ? "is-active" : ""} onClick={() => setTab("rates")}>Đơn giá dự toán</button></nav>
+      {tab !== "projects" ? <><div className="admin-global-actions"><button className="button secondary" onClick={() => supabase.auth.signOut().then(() => location.reload())}><LogOut size={18} /> Đăng xuất</button></div>{tab === "articles" ? <AdminArticles supabase={supabase} /> : tab === "leads" ? <AdminLeads supabase={supabase} /> : <AdminCostRates supabase={supabase} />}</> : <>
       <header className="admin-heading">
         <div><p className="eyebrow">Supabase CMS</p><h1>Quản lý dự án</h1><p>{projects.length} dự án trong cơ sở dữ liệu</p></div>
         <div className="admin-actions">

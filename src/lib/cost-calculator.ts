@@ -1,10 +1,6 @@
 import {
-  accessFactors,
-  constructionRates,
-  finishRates,
-  foundationFactors,
-  provinceFactors,
-  roofFactors,
+  defaultCostRateSettings,
+  type CostRateConfig,
   type AccessType,
   type BuildingType,
   type FinishLevel,
@@ -36,16 +32,16 @@ export type CalculatorResult = {
   totalMax: number;
 };
 
-export function calculateConstructionCost(input: CalculatorInput): CalculatorResult {
-  const baseArea = input.footprint * (input.floors + foundationFactors[input.foundation] + roofFactors[input.roof]);
-  const basementArea = Math.max(0, input.basementArea) * 1.5;
+export function calculateConstructionCost(input: CalculatorInput, rates: CostRateConfig = defaultCostRateSettings.config): CalculatorResult {
+  const baseArea = input.footprint * (input.floors + rates.foundationFactors[input.foundation] + rates.roofFactors[input.roof]);
+  const basementArea = Math.max(0, input.basementArea) * rates.basementFactor;
   const convertedArea = Math.round(baseArea + basementArea);
-  const accessFactor = accessFactors[input.access];
-  const locationFactor = provinceFactors[input.province];
-  const rawRate = constructionRates[input.buildingType];
-  const finishRate = finishRates[input.finishLevel];
-  const elevatorMin = input.elevator ? 420_000_000 : 0;
-  const elevatorMax = input.elevator ? 650_000_000 : 0;
+  const accessFactor = rates.accessFactors[input.access];
+  const locationFactor = rates.provinceFactors[input.province];
+  const rawRate = rates.constructionRates[input.buildingType];
+  const finishRate = rates.finishRates[input.finishLevel];
+  const elevatorMin = input.elevator ? rates.elevatorMin : 0;
+  const elevatorMax = input.elevator ? rates.elevatorMax : 0;
   const rawMin = Math.round(convertedArea * rawRate.rawMin * accessFactor * locationFactor);
   const rawMax = Math.round(convertedArea * rawRate.rawMax * accessFactor * locationFactor);
   const finishMin = Math.round(convertedArea * finishRate.min * locationFactor);

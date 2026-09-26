@@ -47,3 +47,41 @@ export const provinceFactors: Record<ProvinceType, number> = {
   "can-tho": 1.03,
   other: 1.08
 };
+
+export type CostRateConfig = {
+  constructionRates: Record<BuildingType, { rawMin: number; rawMax: number }>;
+  finishRates: Record<FinishLevel, { min: number; max: number }>;
+  foundationFactors: Record<FoundationType, number>;
+  roofFactors: Record<RoofType, number>;
+  accessFactors: Record<AccessType, number>;
+  provinceFactors: Record<ProvinceType, number>;
+  basementFactor: number;
+  elevatorMin: number;
+  elevatorMax: number;
+};
+
+export type CostRateSettings = {
+  version: string;
+  updatedAt: string;
+  note: string;
+  config: CostRateConfig;
+  source: "database" | "default";
+};
+
+export const defaultCostRateSettings: CostRateSettings = {
+  version: costRateVersion.id,
+  updatedAt: "2026-09-15T00:00:00+07:00",
+  note: costRateVersion.note,
+  source: "default",
+  config: {
+    constructionRates,
+    finishRates,
+    foundationFactors,
+    roofFactors,
+    accessFactors,
+    provinceFactors,
+    basementFactor: 1.5,
+    elevatorMin: 420_000_000,
+    elevatorMax: 650_000_000,
+  },
+};

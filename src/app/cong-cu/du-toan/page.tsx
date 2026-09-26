@@ -12,7 +12,7 @@ export default function CostEstimatorPage() {
         compact
         eyebrow={locale === "vi" ? "Công cụ trực tuyến" : "Online tool"}
         title={locale === "vi" ? "Dự toán sơ bộ chi phí xây dựng" : "Early construction cost estimate"}
-        description={locale === "vi" ? "Nhập thông tin cơ bản để xem diện tích quy đổi và khoảng chi phí tham khảo. Công cụ sử dụng bảng hệ số tĩnh, chưa thay thế báo giá chính thức." : "Enter the basics to see a converted construction area and indicative cost range. Static factors are used and the result is not a formal quotation."}
+        description={locale === "vi" ? "Nhập thông tin cơ bản để xem diện tích quy đổi và khoảng chi phí tham khảo theo đơn giá đang áp dụng. Kết quả chưa thay thế báo giá chính thức." : "Enter the basics to see a converted construction area and indicative cost range using the current rate table. The result is not a formal quotation."}
       />
       <CostCalculator />
     </>
