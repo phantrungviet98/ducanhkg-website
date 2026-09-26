@@ -3,6 +3,7 @@
 import { Send } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { useLocale } from "@/lib/locale-context";
+import { trackEvent } from "@/lib/analytics";
 
 type Props = {
   source: string;
@@ -20,22 +21,23 @@ export function ContactForm({ source, title }: Props) {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    const response = await fetch("/api/leads", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        source,
-        name: formData.get("name"),
-        phone: formData.get("phone"),
-        email: formData.get("email"),
-        message: formData.get("message")
-      })
-    });
-
-    if (response.ok) {
+    try {
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source,
+          name: formData.get("name"),
+          phone: formData.get("phone"),
+          email: formData.get("email"),
+          message: formData.get("message")
+        })
+      });
+      if (!response.ok) throw new Error("Lead submission failed");
       form.reset();
       setStatus("sent");
-    } else {
+      trackEvent("generate_lead", { source });
+    } catch {
       setStatus("error");
     }
   }

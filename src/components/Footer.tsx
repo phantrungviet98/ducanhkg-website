@@ -32,6 +32,17 @@ export function Footer() {
           ))}
         </div>
         <div>
+          <h3>{locale === "vi" ? "Khám phá" : "Explore"}</h3>
+          <Link href="/thu-vien/hinh-anh">{locale === "vi" ? "Thư viện hình ảnh" : "Image library"}</Link>
+          <Link href="/thu-vien/video">Video</Link>
+          <Link href="/cam-nang">{locale === "vi" ? "Cẩm nang xây dựng" : "Construction guides"}</Link>
+          <Link href="/cong-cu/du-toan">{locale === "vi" ? "Dự toán chi phí" : "Cost estimator"}</Link>
+          <Link href="/cong-cu/xem-tuoi-lam-nha">{locale === "vi" ? "Xem tuổi làm nhà" : "Building year check"}</Link>
+          <Link href="/tim-kiem">{locale === "vi" ? "Tìm kiếm" : "Search"}</Link>
+          <Link href="/tuyen-dung">{locale === "vi" ? "Tuyển dụng" : "Careers"}</Link>
+          <Link href="/lien-he-hop-tac">{locale === "vi" ? "Hợp tác" : "Partnership"}</Link>
+        </div>
+        <div>
           <h3>{content.common.contact}</h3>
           <p><Phone size={16} /> {site.phone}</p>
           <p><Mail size={16} /> {site.email}</p>

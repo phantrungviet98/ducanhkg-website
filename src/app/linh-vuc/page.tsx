@@ -1,6 +1,7 @@
 "use client";
 
-import { PageIntro, ServicesGrid } from "@/components/Sections";
+import { ServicesGrid } from "@/components/Sections";
+import { PageIntro } from "@/components/ui/PageIntro";
 import { useLocale } from "@/lib/locale-context";
 
 export default function SectorsPage() {

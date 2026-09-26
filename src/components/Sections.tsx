@@ -1,43 +1,41 @@
 "use client";
 
-import { ArrowDownRight, ArrowRight, CheckCircle2, Clock3, MoveUpRight, ShieldCheck } from "lucide-react";
+import { ArrowDownRight, ArrowRight, CheckCircle2, MoveUpRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import { Fragment, type PointerEvent, useState } from "react";
-import type { Article, Hero, Project, Service } from "@/types/content";
+import { Fragment, useEffect, useState } from "react";
+import type { Hero, Service } from "@/types/content";
 import { BrickModel } from "@/components/BrickModel";
+import { ButtonLink } from "@/components/ui/ButtonLink";
 import { useLocale } from "@/lib/locale-context";
 import { useInView } from "@/lib/use-in-view";
 
 export function HeroSection({ hero }: { hero: Hero }) {
-  const { locale } = useLocale();
+  const { content, locale } = useLocale();
+  const projectImages = content.projects.filter((project) => project.published !== false && project.image);
+  const [slideIndex, setSlideIndex] = useState(0);
+  const activeProject = projectImages[slideIndex % projectImages.length];
+  const previousProject = slideIndex > 0 ? projectImages[(slideIndex - 1) % projectImages.length] : null;
 
-  function movePerspective(event: PointerEvent<HTMLDivElement>) {
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    event.currentTarget.style.setProperty("--tilt-x", `${(-y * 7).toFixed(2)}deg`);
-    event.currentTarget.style.setProperty("--tilt-y", `${(x * 9).toFixed(2)}deg`);
-    event.currentTarget.style.setProperty("--spot-x", `${((x + 0.5) * 100).toFixed(0)}%`);
-    event.currentTarget.style.setProperty("--spot-y", `${((y + 0.5) * 100).toFixed(0)}%`);
-  }
-
-  function resetPerspective(event: PointerEvent<HTMLDivElement>) {
-    event.currentTarget.style.setProperty("--tilt-x", "0deg");
-    event.currentTarget.style.setProperty("--tilt-y", "0deg");
-  }
+  useEffect(() => {
+    if (projectImages.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => {
+      if (document.visibilityState === "visible") setSlideIndex((index) => index + 1);
+    }, 6500);
+    return () => window.clearInterval(timer);
+  }, [projectImages.length]);
 
   return (
     <section className="hero">
-      {hero.video ? (
-        <video className="hero-video" autoPlay muted loop playsInline poster={hero.image} preload="metadata">
-          <source src={hero.video} type="video/mp4" />
-        </video>
-      ) : (
-        <Image src={hero.image} alt="" className="hero-image" fill priority sizes="100vw" />
-      )}
+      <div className="hero-slides" aria-hidden="true">
+        {previousProject && <div className="hero-slide"><Image src={previousProject.image} alt="" fill sizes="100vw" className="hero-slide-image" /></div>}
+        <div className={`hero-slide${slideIndex > 0 ? ` is-entering ${slideIndex % 2 === 0 ? "from-right" : "from-left"}` : ""}`} key={slideIndex}>
+          <Image src={activeProject?.image ?? hero.image} alt="" fill priority={slideIndex === 0} sizes="100vw" className="hero-slide-image" />
+        </div>
+        {projectImages.length > 1 && <div className="hero-slide-preload"><Image src={projectImages[(slideIndex + 1) % projectImages.length].image} alt="" fill loading="eager" sizes="100vw" /></div>}
+      </div>
       <div className="hero-overlay" />
       <div className="hero-grid-lines" aria-hidden="true" />
+      {projectImages.length > 1 && <div className="hero-slide-progress" aria-hidden="true"><span key={slideIndex} /></div>}
       <div className="hero-layout">
         <div className="hero-content">
           <div className="hero-status"><span /> {locale === "vi" ? "Đang nhận dự án Q4 / 2026" : "Accepting Q4 / 2026 projects"}</div>
@@ -45,55 +43,12 @@ export function HeroSection({ hero }: { hero: Hero }) {
           <h1>{hero.title}</h1>
           <p>{hero.description}</p>
           <div className="actions">
-            {hero.primaryAction ? <Link className="button primary" href={hero.primaryAction.href}>{hero.primaryAction.label}<ArrowDownRight size={18} /></Link> : null}
-            {hero.secondaryAction ? <Link className="button secondary" href={hero.secondaryAction.href}>{hero.secondaryAction.label}<MoveUpRight size={17} /></Link> : null}
-          </div>
-        </div>
-        <div
-          className="hero-bento"
-          onPointerMove={movePerspective}
-          onPointerLeave={resetPerspective}
-        >
-          <div className="hero-bento-card hero-bento-main">
-            <div className="bento-topline">
-              <span>{locale === "vi" ? "Hồ sơ công trình" : "Project control"}</span>
-              <span>DAKG—26</span>
-            </div>
-            <div className="hero-bento-copy">
-              <strong>01—04</strong>
-              <h2>{locale === "vi" ? "Một đầu mối. Trọn hành trình." : "One team. Full journey."}</h2>
-            </div>
-            <div className="process-line" aria-label={locale === "vi" ? "Quy trình bốn bước" : "Four-step process"}>
-              {["Ý tưởng", "Thiết kế", "Thi công", "Bàn giao"].map((label, index) => (
-                <span key={label}><i>{index + 1}</i>{locale === "vi" ? label : ["Brief", "Design", "Build", "Handover"][index]}</span>
-              ))}
-            </div>
-          </div>
-          <div className="hero-bento-card hero-bento-stat">
-            <Clock3 size={20} />
-            <strong>24h</strong>
-            <span>{locale === "vi" ? "phản hồi yêu cầu" : "response target"}</span>
-          </div>
-          <div className="hero-bento-card hero-bento-stat accent-card">
-            <ShieldCheck size={20} />
-            <strong>4×</strong>
-            <span>{locale === "vi" ? "mốc kiểm soát" : "control stages"}</span>
+            {hero.primaryAction ? <ButtonLink href={hero.primaryAction.href}>{hero.primaryAction.label}<ArrowDownRight size={18} /></ButtonLink> : null}
+            {hero.secondaryAction ? <ButtonLink href={hero.secondaryAction.href} variant="secondary">{hero.secondaryAction.label}<MoveUpRight size={17} /></ButtonLink> : null}
           </div>
         </div>
       </div>
       <div className="scroll-cue"><span>SCROLL</span><i /></div>
-    </section>
-  );
-}
-
-export function PageIntro({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
-  return (
-    <section className="page-intro">
-      <div className="page-intro-copy">
-        <p className="eyebrow">{eyebrow}</p>
-        <h1>{title}</h1>
-        <p>{description}</p>
-      </div>
     </section>
   );
 }
@@ -126,16 +81,6 @@ export function BrickShowcaseSection() {
   );
 }
 
-export function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) {
-  const { ref, inView } = useInView<HTMLDivElement>();
-  return (
-    <div className={`section-heading fade-up${inView ? " in-view" : ""}`} ref={ref}>
-      <p className="eyebrow">{eyebrow}</p>
-      <h2>{title}</h2>
-    </div>
-  );
-}
-
 export function WhoWeAreSection() {
   const { content, locale } = useLocale();
   const section = content.pages.whoWeAre;
@@ -147,9 +92,9 @@ export function WhoWeAreSection() {
         <p className="eyebrow">{section.eyebrow}</p>
         <h2>{section.title}</h2>
         <p>{section.body}</p>
-        <Link className="button secondary" href="/ve-chung-toi">
+        <ButtonLink href="/ve-chung-toi" variant="secondary">
           {section.cta}
-        </Link>
+        </ButtonLink>
       </div>
       <div
         className={`who-image fade-right${inView ? " in-view" : ""}`}
@@ -215,9 +160,9 @@ export function ServicesGrid({ items }: { items: Service[] }) {
                 <div className="mobile-service-detail">
                   <Image src={activeImage} alt="" width={760} height={520} />
                   <p>{item.description}</p>
-                  <Link className="button primary" href="/linh-vuc">
+                  <ButtonLink href="/linh-vuc">
                     {content.common.readMore}
-                  </Link>
+                  </ButtonLink>
                 </div>
               ) : null}
             </Fragment>
@@ -228,9 +173,9 @@ export function ServicesGrid({ items }: { items: Service[] }) {
             <span className="service-index">{String(activeIndex + 1).padStart(2, "0")}</span>
             <h3>{activeService.title}</h3>
             <p>{activeService.description}</p>
-            <Link className="button primary" href="/linh-vuc">
+            <ButtonLink href="/linh-vuc">
               {content.common.readMore}
-            </Link>
+            </ButtonLink>
           </div>
         </div>
         <div
@@ -285,56 +230,5 @@ export function Strengths({ items }: { items: string[] }) {
         ))}
       </div>
     </section>
-  );
-}
-
-export function ProjectGrid({ items }: { items: Project[] }) {
-  const { ref, inView } = useInView<HTMLDivElement>();
-
-  return (
-    <div className="grid three project-bento" ref={ref}>
-      {items.map((project, index) => (
-        <Link
-          className={`image-card project-card-${index + 1} fade-up${inView ? " in-view" : ""}`}
-          href={`/du-an/${project.slug}`}
-          key={project.slug}
-          style={{ transitionDelay: inView ? `${index * 0.1}s` : "0s" }}
-        >
-          <Image src={project.image} alt="" width={720} height={520} />
-          <div>
-            <span>{project.category} · {project.year}</span>
-            <h3>{project.title}</h3>
-            <p>{project.location}</p>
-            <i className="card-arrow"><ArrowRight size={18} /></i>
-          </div>
-        </Link>
-      ))}
-    </div>
-  );
-}
-
-export function ArticleGrid({ items }: { items: Article[] }) {
-  const { content } = useLocale();
-  const { ref, inView } = useInView<HTMLDivElement>();
-
-  return (
-    <div className="grid three" ref={ref}>
-      {items.map((article, index) => (
-        <Link
-          className={`article-card fade-up${inView ? " in-view" : ""}`}
-          href={`/danh-muc-bai-viet/tin-tuc/${article.slug}`}
-          key={article.slug}
-          style={{ transitionDelay: inView ? `${index * 0.1}s` : "0s" }}
-        >
-          <Image src={article.image} alt="" width={720} height={520} />
-          <div>
-            <span>{article.category} · {article.date}</span>
-            <h3>{article.title}</h3>
-            <p>{article.excerpt}</p>
-            <strong>{content.common.readMore} <ArrowRight size={15} /></strong>
-          </div>
-        </Link>
-      ))}
-    </div>
   );
 }

@@ -2,6 +2,8 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { localizedContent, type Locale } from "@/data/localized";
+import { importedProjects } from "@/data/imported-projects";
+import type { Article, Project } from "@/types/content";
 
 type LocaleContextValue = {
   locale: Locale;
@@ -12,6 +14,8 @@ type LocaleContextValue = {
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
+  const [projects, setProjects] = useState<Project[]>(importedProjects);
+  const [articles, setArticles] = useState<Article[] | null>(null);
   const [locale, setLocaleState] = useState<Locale>(() => {
     if (typeof window === "undefined") return "vi";
 
@@ -27,13 +31,31 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
         window.localStorage.setItem("locale", nextLocale);
         document.documentElement.lang = nextLocale;
       },
-      content: localizedContent[locale]
+      content: { ...localizedContent[locale], projects, articles: articles ?? localizedContent[locale].articles }
     };
-  }, [locale]);
+  }, [locale, projects, articles]);
 
   useEffect(() => {
     document.documentElement.lang = locale;
   }, [locale]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/projects", { signal: controller.signal })
+      .then((response) => response.ok ? response.json() : Promise.reject())
+      .then((data: Project[]) => data.length && setProjects(data))
+      .catch(() => undefined);
+    return () => controller.abort();
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/articles", { signal: controller.signal })
+      .then((response) => response.ok ? response.json() : Promise.reject())
+      .then((data: Article[]) => setArticles(data))
+      .catch(() => undefined);
+    return () => controller.abort();
+  }, []);
 
   return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>;
 }

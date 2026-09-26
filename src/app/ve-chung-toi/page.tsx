@@ -1,6 +1,7 @@
 "use client";
 
-import { PageIntro, Strengths } from "@/components/Sections";
+import { Strengths } from "@/components/Sections";
+import { PageIntro } from "@/components/ui/PageIntro";
 import Image from "next/image";
 import { useLocale } from "@/lib/locale-context";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { ContactForm } from "@/components/ContactForm";
-import { PageIntro } from "@/components/Sections";
+import { PageIntro } from "@/components/ui/PageIntro";
 import { useLocale } from "@/lib/locale-context";
 
 export default function ConsultationPage() {

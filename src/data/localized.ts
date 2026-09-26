@@ -43,6 +43,8 @@ type LocalizedContent = {
   pages: {
     homeProjectsEyebrow: string;
     homeProjectsTitle: string;
+    homeMostViewedEyebrow: string;
+    homeMostViewedTitle: string;
     homeNewsEyebrow: string;
     homeNewsTitle: string;
     whoWeAre: { eyebrow: string; title: string; body: string; cta: string; image: string };
@@ -70,7 +72,9 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
       { label: "Về chúng tôi", href: "/ve-chung-toi" },
       { label: "Lĩnh vực", href: "/linh-vuc" },
       { label: "Dự án", href: "/du-an" },
-      { label: "Tuyển dụng", href: "/tuyen-dung" },
+      { label: "Thư viện", href: "/thu-vien" },
+      { label: "Cẩm nang", href: "/cam-nang" },
+      { label: "Dự toán", href: "/cong-cu/du-toan" },
       { label: "Liên hệ", href: "/lien-he" }
     ],
     common: {
@@ -109,10 +113,12 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
       error: "Chưa gửi được yêu cầu. Kiểm tra cấu hình Supabase."
     },
     pages: {
-      homeProjectsEyebrow: "Dự án tiêu biểu",
-      homeProjectsTitle: "Công trình được triển khai bằng chi tiết thực tế và tiến độ rõ ràng",
-      homeNewsEyebrow: "Tin tức",
-      homeNewsTitle: "Ghi chú xây dựng dành cho gia chủ và đội dự án",
+      homeProjectsEyebrow: "Ý tưởng dành riêng cho bạn",
+      homeProjectsTitle: "Tham khảo công trình theo diện tích, ngân sách và nhu cầu sử dụng",
+      homeMostViewedEyebrow: "Ý tưởng được xem nhiều nhất",
+      homeMostViewedTitle: "Những công trình nổi bật để bạn khám phá thêm",
+      homeNewsEyebrow: "Bài viết mới",
+      homeNewsTitle: "Kinh nghiệm thực tế để chuẩn bị cho một công trình rõ ràng hơn",
       whoWeAre: {
         eyebrow: "Duc Anh KG chúng tôi là ai?",
         title: "Đội ngũ tư vấn, thiết kế và thi công trọn gói tại Kiên Giang",
@@ -123,7 +129,7 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
       about: {
         eyebrow: "Về chúng tôi",
         title: "Đội ngũ xây dựng đặt trọng tâm vào sự rõ ràng, trách nhiệm và chất lượng hoàn thiện",
-        description: "Trang này được tổ chức để sau này có thể quản lý lịch sử công ty, đội ngũ, chứng chỉ và tiêu chuẩn vận hành từ admin.",
+        description: "Tìm hiểu cách Đức Anh KG tổ chức đội ngũ, kiểm soát công trình và đồng hành cùng chủ đầu tư trong suốt quá trình triển khai.",
         profileEyebrow: "Hồ sơ công ty",
         profileTitle: "Đồng hành để gia chủ nắm rõ từng bước thi công",
         profileBody: "Đức Anh KG tư vấn, thiết kế và thi công trọn gói với tinh thần xây dựng tận tâm. Nội dung chi tiết có thể tiếp tục cập nhật khi có hồ sơ thương hiệu đầy đủ."
@@ -131,29 +137,29 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
       sectors: {
         eyebrow: "Lĩnh vực",
         title: "Nhà ở, thương mại, cải tạo và hoàn thiện nội thất",
-        description: "Mỗi lĩnh vực đang được lưu dạng dữ liệu có cấu trúc để sau này quản lý từ admin Supabase."
+        description: "Mỗi lĩnh vực được trình bày theo nhu cầu thực tế, phạm vi công việc và cách đội ngũ kiểm soát chất lượng."
       },
       projects: {
         eyebrow: "Dự án",
         title: "Các công trình xây dựng và hoàn thiện tiêu biểu",
-        description: "Danh sách dự án đã tách dữ liệu để sau này có thể tải từ Supabase, thêm bộ lọc, thư viện ảnh và chỉnh sửa từ admin."
+        description: "Khám phá các công trình tiêu biểu qua thông tin phạm vi, bài toán thiết kế và thư viện hình ảnh."
       },
       news: {
         eyebrow: "Tin tức",
         title: "Cập nhật công ty và ghi chú lập kế hoạch xây dựng",
-        description: "Cấu trúc tin tức hỗ trợ chuyên mục, tác giả, trạng thái xuất bản, SEO và ảnh đại diện trong admin sau này."
+        description: "Kinh nghiệm thực tế về chuẩn bị xây nhà, kiểm soát chất lượng, vật liệu và bàn giao công trình."
       },
       careers: {
         eyebrow: "Tuyển dụng",
         title: "Gia nhập đội ngũ coi trọng kỷ luật công trường",
-        description: "Danh sách tuyển dụng sau này có thể lấy từ Supabase với vị trí, địa điểm và trạng thái ứng tuyển.",
+        description: "Các vị trí đang tìm kiếm cho đội ngũ thiết kế, dự toán, điều phối và thi công tại công trường.",
         roles: ["Kỹ sư hiện trường", "Dự toán khối lượng", "Điều phối vật tư", "Giám sát công trình"],
         formTitle: "Gửi thông tin ứng tuyển"
       },
       contact: {
         eyebrow: "Liên hệ",
         title: "Chia sẻ công trình bạn đang dự định triển khai",
-        description: "Thông tin liên hệ sẽ được gửi qua API route đã sẵn sàng kết nối Supabase.",
+        description: "Chia sẻ nhu cầu, địa điểm và thời gian dự kiến để đội ngũ chuẩn bị nội dung trao đổi phù hợp.",
         office: "Văn phòng"
       },
       cooperation: {
@@ -167,15 +173,14 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
         title: "Đăng ký tư vấn từ đội ngũ Đức Anh KG",
         description: "Trang này dùng làm luồng chuyển đổi chính cho quảng cáo, chiến dịch và lời kêu gọi hành động trên trang chủ."
       },
-      projectDetailBody: "Nội dung chi tiết hiện là dữ liệu mẫu. Sau này admin có thể quản lý thông tin dự án, thư viện ảnh, phạm vi, tiến độ và ghi chú bàn giao.",
-      articleDetailBody: "Nội dung bài viết hiện là dữ liệu mẫu. Admin sau này có thể lưu nội dung rich text, hình ảnh, SEO metadata và trạng thái xuất bản trong Supabase."
+      projectDetailBody: "Thông tin công trình được tổng hợp từ phạm vi triển khai, giải pháp kỹ thuật và các mốc kiểm soát chất lượng.",
+      articleDetailBody: "Mỗi công trình có điều kiện riêng; hãy dùng nội dung này như một khung tham khảo và trao đổi trực tiếp với đội ngũ trước khi quyết định."
     },
     hero: {
       eyebrow: "Xây dựng tận tâm",
       title: "Đức Anh KG tư vấn, thiết kế và thi công trọn gói",
       description: "Đồng hành cùng gia chủ từ ý tưởng ban đầu đến bàn giao công trình, tập trung vào quy trình rõ ràng, chi phí minh bạch và chất lượng hoàn thiện bền vững.",
       image: site.banner,
-      video: "/VIDEO-GIOI-THIEU-WEB.mp4",
       primaryAction: { label: "Đăng ký tư vấn", href: "/dang-ky-tu-van-ho-tro" },
       secondaryAction: { label: "Xem dự án", href: "/du-an" }
     },
@@ -199,7 +204,18 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
         location: "Rạch Giá, Kiên Giang",
         year: "2026",
         image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80",
-        summary: "Không gian sống hiện đại tập trung vào ánh sáng tự nhiên, vật liệu bền và tỷ lệ nội thất hài hòa."
+        summary: "Không gian sống hiện đại tập trung vào ánh sáng tự nhiên, vật liệu bền và tỷ lệ nội thất hài hòa.",
+        landArea: "Đang cập nhật",
+        scale: "Biệt thự gia đình",
+        scope: "Tư vấn thiết kế · Thi công trọn gói",
+        challenge: "Tổ chức một không gian sống riêng tư nhưng vẫn mở, thoáng và kết nối tốt với ánh sáng tự nhiên.",
+        solution: "Mặt bằng được phân lớp theo mức độ riêng tư, kết hợp các khoảng mở và vật liệu có độ bền phù hợp với khí hậu địa phương.",
+        gallery: [
+          { src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85", alt: "Không gian biệt thự gia đình" },
+          { src: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1400&q=85", alt: "Không gian nội thất hiện đại" },
+          { src: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=85", alt: "Phòng khách sử dụng ánh sáng tự nhiên" }
+        ],
+        filters: { type: "villa", province: "kien-giang", landAreaM2: 240, budgetBillion: 4.5, popularity: 98 }
       },
       {
         slug: "mixed-use-townhouse",
@@ -208,7 +224,18 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
         location: "Kiên Giang",
         year: "2025",
         image: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1400&q=80",
-        summary: "Nhà mặt tiền với tầng trệt linh hoạt cho kinh doanh và các tầng trên dành cho sinh hoạt riêng tư."
+        summary: "Nhà mặt tiền với tầng trệt linh hoạt cho kinh doanh và các tầng trên dành cho sinh hoạt riêng tư.",
+        landArea: "Đang cập nhật",
+        scale: "Nhà phố kết hợp kinh doanh",
+        scope: "Thiết kế kiến trúc · Hoàn thiện",
+        challenge: "Cân bằng luồng khách hàng tại tầng trệt với nhu cầu sinh hoạt riêng tư của gia đình ở các tầng trên.",
+        solution: "Giao thông được tách rõ từ lối vào, đồng thời lõi thang và khoảng thông tầng hỗ trợ chiếu sáng, thông gió cho phần ở.",
+        gallery: [
+          { src: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1800&q=85", alt: "Mặt tiền nhà phố kết hợp kinh doanh" },
+          { src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85", alt: "Không gian sinh hoạt nhà phố" },
+          { src: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1400&q=85", alt: "Khu vực nội thất nhà phố" }
+        ],
+        filters: { type: "townhouse", province: "kien-giang", landAreaM2: 120, budgetBillion: 2.8, popularity: 88 }
       },
       {
         slug: "compact-office-fitout",
@@ -217,7 +244,87 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
         location: "Cần Thơ",
         year: "2025",
         image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80",
-        summary: "Cải tạo văn phòng với phòng họp cách âm, hệ chiếu sáng hiệu quả và khu làm việc linh hoạt."
+        summary: "Cải tạo văn phòng với phòng họp cách âm, hệ chiếu sáng hiệu quả và khu làm việc linh hoạt.",
+        landArea: "Đang cập nhật",
+        scale: "Văn phòng quy mô nhỏ",
+        scope: "Thiết kế nội thất · Thi công hoàn thiện",
+        challenge: "Tăng số vị trí làm việc mà vẫn giữ lối đi thoáng, khả năng tập trung và sự riêng tư cho các cuộc họp.",
+        solution: "Không gian được chia bằng vách kính, hệ tủ tích hợp và các cụm ánh sáng riêng cho làm việc, họp và trao đổi nhanh.",
+        gallery: [
+          { src: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85", alt: "Không gian văn phòng linh hoạt" },
+          { src: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1400&q=85", alt: "Khu vực làm việc chung" },
+          { src: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1400&q=85", alt: "Phòng họp văn phòng" }
+        ],
+        filters: { type: "commercial", province: "can-tho", landAreaM2: 180, budgetBillion: 3.2, popularity: 72 }
+      },
+      {
+        slug: "three-storey-townhouse-rach-gia",
+        title: "Nhà phố 3 tầng tại Rạch Giá",
+        category: "Nhà phố",
+        location: "Rạch Giá, Kiên Giang",
+        year: "2026",
+        image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1400&q=80",
+        summary: "Nhà phố 3 tầng trên khu đất 96 m², ưu tiên thông gió, ánh sáng tự nhiên và không gian sinh hoạt linh hoạt cho gia đình trẻ.",
+        landArea: "96 m²",
+        buildingArea: "78 m²",
+        totalFloorArea: "234 m²",
+        scale: "3 tầng · 3 phòng ngủ",
+        budget: "Khoảng 2,6 tỷ",
+        scope: "Thiết kế kiến trúc · Thi công trọn gói",
+        challenge: "Khu đất có mặt tiền hẹp nhưng gia đình cần ba phòng ngủ, chỗ để xe và các không gian chung luôn thông thoáng.",
+        solution: "Cầu thang và khoảng thông tầng được tổ chức ở lõi nhà, giúp đưa ánh sáng xuống giữa công trình và tách rõ khu sinh hoạt chung với khu nghỉ ngơi.",
+        gallery: [
+          { src: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=85", alt: "Không gian nhà phố 3 tầng" },
+          { src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85", alt: "Mặt tiền nhà phố hiện đại" },
+          { src: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=85", alt: "Phòng khách nhà phố nhiều ánh sáng" }
+        ],
+        filters: { type: "townhouse", province: "kien-giang", landAreaM2: 96, budgetBillion: 2.6, popularity: 94 }
+      },
+      {
+        slug: "garden-villa-phu-quoc",
+        title: "Biệt thự sân vườn Phú Quốc",
+        category: "Biệt thự",
+        location: "Phú Quốc",
+        year: "2026",
+        image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1400&q=80",
+        summary: "Biệt thự sân vườn một tầng với hiên rộng, không gian mở và các phòng sinh hoạt hướng ra mảng xanh trung tâm.",
+        landArea: "420 m²",
+        buildingArea: "185 m²",
+        totalFloorArea: "185 m²",
+        scale: "1 tầng · 4 phòng ngủ",
+        budget: "Khoảng 5,8 tỷ",
+        scope: "Tư vấn thiết kế · Thi công hoàn thiện",
+        challenge: "Tạo cảm giác nghỉ dưỡng nhưng vẫn bảo đảm riêng tư, chống nắng mưa và dễ bảo trì trong điều kiện khí hậu biển.",
+        solution: "Mái đua sâu, hiên liên tục và sân trong tạo lớp đệm khí hậu; vật liệu ngoài trời được chọn theo tiêu chí bền ẩm và dễ thay thế.",
+        gallery: [
+          { src: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1800&q=85", alt: "Biệt thự sân vườn nhìn từ hồ bơi" },
+          { src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=85", alt: "Không gian sinh hoạt mở của biệt thự" },
+          { src: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1400&q=85", alt: "Nội thất biệt thự sân vườn" }
+        ],
+        filters: { type: "villa", province: "other", landAreaM2: 420, budgetBillion: 5.8, popularity: 91 }
+      },
+      {
+        slug: "japanese-roof-level4-home",
+        title: "Nhà cấp 4 mái Nhật",
+        category: "Nhà cấp 4",
+        location: "Hà Tiên",
+        year: "2025",
+        image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1400&q=80",
+        summary: "Nhà cấp 4 mái Nhật bố trí ba phòng ngủ, bếp liên thông phòng khách và hiên trước phù hợp nhịp sống gia đình nhiều thế hệ.",
+        landArea: "165 m²",
+        buildingArea: "128 m²",
+        totalFloorArea: "128 m²",
+        scale: "1 tầng · 3 phòng ngủ",
+        budget: "Khoảng 1,9 tỷ",
+        scope: "Thiết kế · Hồ sơ kỹ thuật · Thi công",
+        challenge: "Bố trí đủ không gian cho gia đình nhiều thế hệ trên một tầng mà vẫn giữ lối đi ngắn, riêng tư và thông thoáng.",
+        solution: "Khối sinh hoạt chung đặt ở trung tâm, các phòng ngủ phân về hai phía và cùng tiếp cận khoảng sân thoáng qua hệ cửa rộng có mái che.",
+        gallery: [
+          { src: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1800&q=85", alt: "Nhà cấp 4 mái Nhật nhìn từ sân trước" },
+          { src: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1400&q=85", alt: "Không gian bếp và phòng khách liên thông" },
+          { src: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1400&q=85", alt: "Nội thất nhà cấp 4" }
+        ],
+        filters: { type: "level4", province: "kien-giang", landAreaM2: 165, budgetBillion: 1.9, popularity: 86 }
       }
     ],
     articles: [
@@ -252,7 +359,9 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
       { label: "About", href: "/ve-chung-toi" },
       { label: "Sectors", href: "/linh-vuc" },
       { label: "Projects", href: "/du-an" },
-      { label: "Careers", href: "/tuyen-dung" },
+      { label: "Library", href: "/thu-vien" },
+      { label: "Guides", href: "/cam-nang" },
+      { label: "Estimator", href: "/cong-cu/du-toan" },
       { label: "Contact", href: "/lien-he" }
     ],
     common: {
@@ -291,10 +400,12 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
       error: "The request could not be sent. Check Supabase configuration."
     },
     pages: {
-      homeProjectsEyebrow: "Selected work",
-      homeProjectsTitle: "Projects delivered with practical detail and clear progress",
-      homeNewsEyebrow: "News",
-      homeNewsTitle: "Construction notes for owners and project teams",
+      homeProjectsEyebrow: "Ideas for you",
+      homeProjectsTitle: "Explore projects by area, budget, and the way you plan to use them",
+      homeMostViewedEyebrow: "Most viewed ideas",
+      homeMostViewedTitle: "Popular projects worth exploring",
+      homeNewsEyebrow: "Latest guides",
+      homeNewsTitle: "Practical experience for planning a clearer construction journey",
       whoWeAre: {
         eyebrow: "Who is Duc Anh KG?",
         title: "A turnkey design and construction team based in Kien Giang",
@@ -305,7 +416,7 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
       about: {
         eyebrow: "About",
         title: "A construction team focused on clarity, accountability, and finish quality",
-        description: "This page is structured so company history, team profiles, certifications, and operating standards can later be managed from admin.",
+        description: "Learn how Duc Anh KG organizes its team, controls project delivery, and supports owners throughout the build.",
         profileEyebrow: "Company profile",
         profileTitle: "Keeping owners informed at every construction step",
         profileBody: "Đức Anh KG provides design consultation and turnkey construction with a careful, owner-focused working style. Detailed content can be expanded when the full brand profile is ready."
@@ -313,29 +424,29 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
       sectors: {
         eyebrow: "Sectors",
         title: "Residential, commercial, renovation, and interior finishing",
-        description: "Each sector is stored as structured data so it can later be managed from a Supabase admin interface."
+        description: "Each sector is presented through real client needs, project scope, and the team's approach to quality control."
       },
       projects: {
         eyebrow: "Projects",
         title: "Selected construction and finishing projects",
-        description: "Project data is already separated so it can later load from Supabase with filters, galleries, and admin editing."
+        description: "Explore selected work through project scope, design challenges, practical responses, and image galleries."
       },
       news: {
         eyebrow: "News",
         title: "Company updates and construction planning notes",
-        description: "The news structure supports categories, authors, publishing status, SEO, and featured images in the future admin."
+        description: "Practical guidance on planning a build, quality control, materials, and project handover."
       },
       careers: {
         eyebrow: "Careers",
         title: "Join a team that values discipline on site",
-        description: "Recruitment listings can later come from Supabase with roles, locations, and application status.",
+        description: "Current opportunities across design, estimating, coordination, and site delivery.",
         roles: ["Site engineer", "Quantity surveyor", "Procurement coordinator", "Project supervisor"],
         formTitle: "Send your application"
       },
       contact: {
         eyebrow: "Contact",
         title: "Tell us what you are planning",
-        description: "Lead submissions are sent through the Supabase-ready API route.",
+        description: "Share your needs, location, and expected timeline so the team can prepare a relevant discussion.",
         office: "Office"
       },
       cooperation: {
@@ -349,15 +460,14 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
         title: "Request advice from the Đức Anh KG team",
         description: "Use this page as the main conversion route for ads, campaign links, and homepage calls to action."
       },
-      projectDetailBody: "Detail content is placeholder data. Later, the admin panel can manage project facts, galleries, scope, timeline, and handover notes.",
-      articleDetailBody: "This article body is placeholder data. The future admin can store rich text, images, SEO metadata, and publishing status in Supabase."
+      projectDetailBody: "Project information is organized around delivery scope, technical responses, and quality-control milestones.",
+      articleDetailBody: "Every project has different conditions; use this as a planning framework and speak with the team before making final decisions."
     },
     hero: {
       eyebrow: "Built with care",
       title: "Đức Anh KG design consultation and turnkey construction",
       description: "We support owners from first idea to handover, with clear process, transparent cost control, and durable finish quality.",
       image: site.banner,
-      video: "/VIDEO-GIOI-THIEU-WEB.mp4",
       primaryAction: { label: "Request consultation", href: "/dang-ky-tu-van-ho-tro" },
       secondaryAction: { label: "View projects", href: "/du-an" }
     },
@@ -381,7 +491,18 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
         location: "Rach Gia, Kien Giang",
         year: "2026",
         image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80",
-        summary: "A modern living space focused on natural light, durable materials, and balanced interior proportions."
+        summary: "A modern living space focused on natural light, durable materials, and balanced interior proportions.",
+        landArea: "To be updated",
+        scale: "Family villa",
+        scope: "Design consultation · Turnkey construction",
+        challenge: "Create a private family home that still feels open, bright, and closely connected to natural light.",
+        solution: "The plan layers spaces by privacy, combining open voids with durable materials suited to the local climate.",
+        gallery: [
+          { src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85", alt: "Family villa living space" },
+          { src: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1400&q=85", alt: "Modern villa interior" },
+          { src: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=85", alt: "Naturally lit living room" }
+        ],
+        filters: { type: "villa", province: "kien-giang", landAreaM2: 240, budgetBillion: 4.5, popularity: 98 }
       },
       {
         slug: "mixed-use-townhouse",
@@ -390,7 +511,18 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
         location: "Kien Giang",
         year: "2025",
         image: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1400&q=80",
-        summary: "A street-facing house with a flexible business ground floor and private living areas above."
+        summary: "A street-facing house with a flexible business ground floor and private living areas above.",
+        landArea: "To be updated",
+        scale: "Mixed-use townhouse",
+        scope: "Architectural design · Finishing",
+        challenge: "Balance customer circulation at ground level with the family's need for privacy on the floors above.",
+        solution: "Access routes are separated from the entrance, while a stair core and void bring light and ventilation into the home.",
+        gallery: [
+          { src: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1800&q=85", alt: "Mixed-use townhouse facade" },
+          { src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85", alt: "Townhouse living space" },
+          { src: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1400&q=85", alt: "Townhouse interior" }
+        ],
+        filters: { type: "townhouse", province: "kien-giang", landAreaM2: 120, budgetBillion: 2.8, popularity: 88 }
       },
       {
         slug: "compact-office-fitout",
@@ -399,7 +531,87 @@ export const localizedContent: Record<Locale, LocalizedContent> = {
         location: "Can Tho",
         year: "2025",
         image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80",
-        summary: "An office upgrade with acoustic meeting rooms, efficient lighting, and flexible work zones."
+        summary: "An office upgrade with acoustic meeting rooms, efficient lighting, and flexible work zones.",
+        landArea: "To be updated",
+        scale: "Compact office",
+        scope: "Interior design · Fit-out",
+        challenge: "Increase workstation capacity while retaining clear circulation, focus, and privacy for meetings.",
+        solution: "Glass partitions, integrated storage, and dedicated lighting zones organize focused work, meetings, and quick collaboration.",
+        gallery: [
+          { src: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85", alt: "Flexible office workspace" },
+          { src: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1400&q=85", alt: "Shared office work area" },
+          { src: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1400&q=85", alt: "Office meeting room" }
+        ],
+        filters: { type: "commercial", province: "can-tho", landAreaM2: 180, budgetBillion: 3.2, popularity: 72 }
+      },
+      {
+        slug: "three-storey-townhouse-rach-gia",
+        title: "Three-storey Townhouse in Rach Gia",
+        category: "Townhouse",
+        location: "Rach Gia, Kien Giang",
+        year: "2026",
+        image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1400&q=80",
+        summary: "A three-storey townhouse on a 96 m² plot, designed for natural ventilation, daylight, and flexible family living.",
+        landArea: "96 m²",
+        buildingArea: "78 m²",
+        totalFloorArea: "234 m²",
+        scale: "3 floors · 3 bedrooms",
+        budget: "Approx. 2.6B VND",
+        scope: "Architectural design · Turnkey construction",
+        challenge: "A narrow frontage must accommodate three bedrooms, vehicle parking, and bright shared spaces for a young family.",
+        solution: "The stair and central void bring daylight into the middle of the plan while separating shared living areas from private rooms.",
+        gallery: [
+          { src: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=85", alt: "Three-storey townhouse interior" },
+          { src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85", alt: "Modern townhouse facade" },
+          { src: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=85", alt: "Daylit townhouse living room" }
+        ],
+        filters: { type: "townhouse", province: "kien-giang", landAreaM2: 96, budgetBillion: 2.6, popularity: 94 }
+      },
+      {
+        slug: "garden-villa-phu-quoc",
+        title: "Garden Villa in Phu Quoc",
+        category: "Villa",
+        location: "Phu Quoc",
+        year: "2026",
+        image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1400&q=80",
+        summary: "A single-storey garden villa with deep verandas, open living spaces, and rooms facing a central green courtyard.",
+        landArea: "420 m²",
+        buildingArea: "185 m²",
+        totalFloorArea: "185 m²",
+        scale: "1 floor · 4 bedrooms",
+        budget: "Approx. 5.8B VND",
+        scope: "Design consultation · Finishing construction",
+        challenge: "Create a resort atmosphere while maintaining privacy, weather protection, and easy upkeep in a coastal climate.",
+        solution: "Deep roof overhangs, continuous verandas, and a courtyard form a climate buffer, with exterior materials selected for humidity resistance and simple replacement.",
+        gallery: [
+          { src: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1800&q=85", alt: "Garden villa viewed from the pool" },
+          { src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=85", alt: "Open villa living space" },
+          { src: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1400&q=85", alt: "Garden villa interior" }
+        ],
+        filters: { type: "villa", province: "other", landAreaM2: 420, budgetBillion: 5.8, popularity: 91 }
+      },
+      {
+        slug: "japanese-roof-level4-home",
+        title: "Japanese-roof Single-storey Home",
+        category: "Single-storey home",
+        location: "Ha Tien",
+        year: "2025",
+        image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1400&q=80",
+        summary: "A Japanese-roof single-storey home with three bedrooms, an open kitchen and living area, and a generous front veranda.",
+        landArea: "165 m²",
+        buildingArea: "128 m²",
+        totalFloorArea: "128 m²",
+        scale: "1 floor · 3 bedrooms",
+        budget: "Approx. 1.9B VND",
+        scope: "Design · Technical documentation · Construction",
+        challenge: "Fit a multi-generational family on one floor while keeping circulation short, private, and well ventilated.",
+        solution: "Shared living spaces sit at the center, bedrooms are arranged on either side, and wide sheltered openings connect the home to the garden.",
+        gallery: [
+          { src: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1800&q=85", alt: "Japanese-roof home from the front garden" },
+          { src: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1400&q=85", alt: "Open kitchen and living area" },
+          { src: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1400&q=85", alt: "Single-storey home interior" }
+        ],
+        filters: { type: "level4", province: "kien-giang", landAreaM2: 165, budgetBillion: 1.9, popularity: 86 }
       }
     ],
     articles: [

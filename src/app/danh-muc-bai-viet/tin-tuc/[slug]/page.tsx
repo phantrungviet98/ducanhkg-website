@@ -1,12 +1,11 @@
-import { ArticleDetailView } from "@/components/ArticleDetailView";
+import { permanentRedirect } from "next/navigation";
 import { localizedContent } from "@/data/localized";
 
 export function generateStaticParams() {
   return localizedContent.vi.articles.map((article) => ({ slug: article.slug }));
 }
 
-export default async function ArticleDetail({ params }: { params: Promise<{ slug: string }> }) {
+export default async function LegacyArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-
-  return <ArticleDetailView slug={slug} />;
+  permanentRedirect(`/cam-nang/${slug}`);
 }

@@ -1,0 +1,99 @@
+@font-face {
+  font-family: "Google Sans Flex";
+  src: url("/fonts/GoogleSansFlex.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/fonts/PlayfairDisplay.ttf") format("truetype");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/fonts/PlayfairDisplay-Italic.ttf") format("truetype");
+  font-weight: 400 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Great Vibes";
+  src: url("/fonts/GreatVibes.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Typography */
+  --font-sans: "Google Sans Flex", Arial, Helvetica, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-script: "Great Vibes", cursive;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-body: 1rem;
+  --text-lead: 1.125rem;
+  --leading-tight: 1.05;
+  --leading-body: 1.65;
+
+  /* Brand and semantic colors */
+  --color-brand-maroon: #591712;
+  --color-brand-sand: #e4d5b9;
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --rgb-brand-maroon: 89 23 18;
+  --rgb-brand-sand: 228 213 185;
+  --rgb-black: 0 0 0;
+  --rgb-white: 255 255 255;
+  --color-ink: var(--color-black);
+  --color-muted: #716c64;
+  --color-line: rgb(23 21 19 / 0.12);
+  --color-paper: rgb(var(--rgb-brand-sand) / 0.34);
+  --color-surface: var(--color-white);
+  --color-accent: var(--color-brand-maroon);
+  --color-accent-soft: var(--color-brand-sand);
+  --color-header-bg: rgb(var(--rgb-white) / 0.92);
+  --color-footer-bg: var(--color-black);
+  --color-on-dark-muted: rgb(var(--rgb-white) / 0.76);
+  --color-on-dark-subtle: rgb(var(--rgb-white) / 0.55);
+  --color-ember: var(--color-brand-sand);
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --section-space: clamp(5rem, 9vw, 8.75rem);
+
+  /* Shape and elevation */
+  --radius-sm: 14px;
+  --radius-md: 24px;
+  --radius-lg: 36px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 10px 30px rgb(17 16 15 / 0.08);
+  --shadow: 0 28px 80px rgb(17 16 15 / 0.15);
+
+  /* Layout */
+  --page-gutter: clamp(20px, 4vw, 64px);
+  --page-max: 1600px;
+  --header-height: 82px;
+  --control-height: 50px;
+
+  /* Motion and layering */
+  --duration-fast: 180ms;
+  --duration-normal: 260ms;
+  --ease-standard: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --z-header: 20;
+  --z-sticky-action: 30;
+  --z-overlay: 100;
+}
